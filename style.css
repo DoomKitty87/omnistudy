@@ -1,0 +1,68 @@
+@font-face {
+  font-family: "Open Sans";
+  src: url("opensans.ttf") format("truetype");
+}
+
+:root {
+  --main-text-color: #00e8fa;
+  --highlighted-text-color: #66f4ff;
+  --dark-background: #071009;
+  --light-background: #071009ef;
+  font-size: 1vw;
+  --font-size-small: 1.3rem;
+  --font-size-medium: 2.2rem;
+  --font-size-large: 3rem;
+}
+
+body {
+  font-family: "Open Sans";
+  background-color: var(--light-background);
+  color: var(--main-text-color);
+  margin: 0;
+  user-select: none;
+}
+
+button {
+  background-color: var(--dark-background);
+  color: var(--main-text-color);
+  border-width: 0;
+  cursor: pointer;
+  font-weight: 200;
+  font-size: var(--font-size-medium);
+  padding: 0.6rem 1.5rem;
+  transition: transform 0.5s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.headerbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--dark-background);
+  padding: 1rem;
+  padding-bottom: 0;
+}
+
+.title {
+  margin-left: 1rem;
+  margin-top: 0;
+  font-size: var(--font-size-large);
+  font-weight: 600;
+}
+
+.headerbutton {
+  margin-top: 0;
+  margin-left: 5rem;
+  font-size: var(--font-size-medium);
+  font-weight: 400;
+  cursor: pointer;
+  transition: color 0.5s ease, transform 0.5s ease;
+}
+
+.headerbutton:hover {
+  transform: scale(1.05);
+  color: var(--highlighted-text-color);
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Study for AP Classes</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+</head>
+<body>
+  <div class="headerbar">
+    <h1 class="title">APStudy</h1>
+    <h2 class="headerbutton" onclick="openMenu(0)">Practice</h2>
+  </div>
+  <h1 id="problem"></h1>
+  <button onclick="document.getElementById('problem').innerHTML = getProblem('buoyantForceSubmerged')">Generate Problem</button>
+  <div id="answerform">
+  </div>
+  <button onclick="checkAnswer()">Check Answer</button>
+  <h3 id="response"></h3>
+</body>
+<script src="index.js"></script>
+</html>
