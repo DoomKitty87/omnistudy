@@ -7,7 +7,7 @@ const problemOptions = document.getElementById("problemoptions");
 var lastRequestedProblem = "";
 var currentType = 0;
 
-const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating"], ["Power Rule"], []];
+const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating"], ["Power Rule"], ["P Value Conclusion"]];
 
 function generateProblem() {
   const type = problemOptions.selectedIndex;
