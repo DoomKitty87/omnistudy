@@ -106,3 +106,10 @@ function buoyantForceFloating() {
   currentAnswer = [Math.round(sideLength * sideLength * depth * density * 100) / 100];
   return `There is a cube with side length ${sideLength}m floating in a fluid of density ${density}kg/m3 with its bottom edge ${depth}m below the surface. Find the mass of the cube. (g = 10, round to 2 decimals)`;
 }
+
+function pValueConclusion() {
+  const pValue = getRandomValue(0.2, 0.3999, 3);
+  const alphaValue = [0.01, 0.05, 0.1, 0.15].slice(getRandomValue(2, 2, 0));
+  currentAnswer = [pValue > alphaValue ? true : false];
+  return `An experiment's z/t-score resulted in a p-value of ${pValue}, and the designers of the experiment chose to use an alpha value of ${alphaValue}. Is there enough evidence to reject the null hypothesis? (true or false)`;
+}
