@@ -78,8 +78,8 @@ button:hover {
   background-color: var(--dark-background);
   width: fit-content;
   margin-left: 1rem;
-  padding: 0.5rem 1rem;
-  margin-bottom: -1rem;
+  padding: 0.8rem 1rem 0rem 1rem;
+  margin-bottom: -2rem;
 }
 
 .answerlabel {
@@ -98,6 +98,7 @@ button:hover {
   font-size: calc(var(--font-size-small) * 0.8);
   outline: none;
   appearance: textfield;
+  margin-bottom: 1rem;
 }
 
 .answerinput::-webkit-outer-spin-button,.answerinput::-webkit-inner-spin-button {
@@ -121,4 +122,13 @@ button:hover {
 .confetti {
   position: absolute;
   top: 0;
+}
+
+.selectproblems {
+  background-color: var(--dark-background);
+  border: none;
+  font-size: var(--font-size-small);
+  color: var(--main-text-color);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
 }

@@ -7,7 +7,7 @@ const problemOptions = document.getElementById("problemoptions");
 var lastRequestedProblem = "";
 var currentType = 0;
 
-const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating"]];
+const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating"], ["Power Rule"], []];
 
 function generateProblem() {
   const type = problemOptions.selectedIndex;
@@ -32,13 +32,12 @@ function getProblem(problemSet) {
     label.classList += "answerlabel";
     answerForm.appendChild(label);
     answerForm.appendChild(input);
+    answerForm.appendChild(document.createElement("br"))
   }
 }
 
 function checkAnswer() {
   var correct = true;
-  if (answerForm.children.length != currentAnswer.length * 2) return;
-  if (answerForm.children.length == 0) return;
   for (var i = 0; i < currentAnswer.length; i++) {
     if (answerForm.children[i * 2 + 1].value != currentAnswer[i]) correct = false;
   }
@@ -69,6 +68,7 @@ function setType(type) {
     option.innerHTML = problemTypes[type][i];
     problemOptions.appendChild(option);
   }
+  generateProblem();
 }
 
 function spawnConfetti() {
@@ -96,7 +96,7 @@ function buoyantForceSubmerged() {
   const sideLength = getRandomValue(0.5, 0.2, 2);
   const density = getRandomValue(1000, 300, 1);
   currentAnswer = [Math.round(Math.abs(mass * 10 - sideLength * sideLength * sideLength * density * 10) * 100) / 100];
-  return `There is a cube with a mass of ${mass}kg and side length ${sideLength}m submerged in a fluid of density ${density}kg/m3. Find the magnitude of the net force acting on the cube. (g = 10, round to 2 decimals)`;
+  return `There is a cube with a mass of ${mass}kg and side length ${sideLength}m submerged in a fluid of density ${density}kg/m<sup>3</sup>. Find the magnitude of the net force acting on the cube. (g = 10, round to 2 decimals)`;
 }
 
 function buoyantForceFloating() {
@@ -112,4 +112,47 @@ function pValueConclusion() {
   const alphaValue = [0.01, 0.05, 0.1, 0.15].slice(getRandomValue(2, 2, 0));
   currentAnswer = [pValue > alphaValue ? true : false];
   return `An experiment's z/t-score resulted in a p-value of ${pValue}, and the designers of the experiment chose to use an alpha value of ${alphaValue}. Is there enough evidence to reject the null hypothesis? (true or false)`;
+}
+
+function powerRule() {
+  const terms = getRandomValue(3, 4, 0);
+  var coefficients = [];
+  var exponents = [];
+  var expression = "";
+  var answer = "";
+  for (var i = 0; i < terms; i++) {
+    coefficients[i] = getRandomValue(0, 10, 0);
+    exponents[i] = getRandomValue(0, 8, 0);
+    while (coefficients[i] == 0) coefficients[i] = getRandomValue(0, 10, 0);
+    while (exponents[i] == 0) exponents[i] = getRandomValue(0, 8, 0);
+    
+    if (i == 0) {
+      if (coefficients[i] == 1) {
+        expression += "x" + (exponents[i] == 1 ? "" : "<sup>" + exponents[i] + "</sup>");
+        if (exponents[i] == 1) answer += coefficients[i];
+      }
+      else {
+        expression += coefficients[i] + "x" + (exponents[i] == 1 ? "" : "<sup>" + exponents[i] + "</sup>");
+        if (exponents[i] == 1) answer += coefficients[i];
+      }
+    }
+    else {
+      if (coefficients[i] == 1) {
+        expression += " + x" + (exponents[i] == 1 ? "" : "<sup>" + exponents[i] + "</sup>");
+      }
+      else {
+        expression += " " + (Math.sign(coefficients[i]) == 1 ? "+" : "-") + " " + Math.abs(coefficients[i]) + "x" + (exponents[i] == 1 ? "" : "<sup>" + exponents[i] + "</sup>");
+      }
+    }
+  }
+
+  const tailing = getRandomValue(0, 20, 0);
+  if (tailing != 0) {
+    if (expression.length > 0) expression += " " + (Math.sign(tailing) ? "+" : "-") + " " + Math.abs(tailing);
+    else expression += (Math.sign(tailing) ? "" : "-") + Math.abs(tailing);
+  }
+
+  expression = "f(x) = " + expression + ". Find f'(x).";
+  currentAnswer = [answer];
+  return expression;
 }
