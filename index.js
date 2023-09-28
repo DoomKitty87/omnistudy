@@ -109,7 +109,8 @@ function buoyantForceFloating() {
 
 function pValueConclusion() {
   const pValue = getRandomValue(0.2, 0.3999, 3);
-  const alphaValue = [0.01, 0.05, 0.1, 0.15].charAt(getRandomValue(2, 2, 0));
+  const values = [0.01, 0.05, 0.1, 0.15];
+  const alphaValue = values[(getRandomValue(2, 2, 0))];
   currentAnswer = [pValue > alphaValue ? true : false];
   return `An experiment's z/t-score resulted in a p-value of ${pValue}, and the designers of the experiment chose to use an alpha value of ${alphaValue}. Is there enough evidence to reject the null hypothesis? (true or false)`;
 }
@@ -130,6 +131,7 @@ function powerRule() {
       if (coefficients[i] == 1) {
         expression += "x" + (exponents[i] == 1 ? "" : "<sup>" + exponents[i] + "</sup>");
         if (exponents[i] == 1) answer += coefficients[i];
+        else answer += coefficients[i] * exponents[i];
       }
       else {
         expression += coefficients[i] + "x" + (exponents[i] == 1 ? "" : "<sup>" + exponents[i] + "</sup>");
