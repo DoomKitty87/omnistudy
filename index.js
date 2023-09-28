@@ -1,10 +1,12 @@
 var currentAnswer = [];
 var currentPossibleAnswers = [];
+var currentExplanation = "";
 const problemText = document.getElementById("problem");
 const answerForm = document.getElementById("answerform");
 const responseText = document.getElementById("response");
 const confettiHolder = document.getElementById("confettiholder");
 const problemOptions = document.getElementById("problemoptions");
+const problemExplanation = document.getElementById("explanation");
 var lastRequestedProblem = "";
 var currentType = 0;
 
@@ -18,9 +20,13 @@ function generateProblem() {
 }
 
 function getProblem(problemSet) {
+  currentExplanation = "";
   const problem = window[problemSet]();
+  problemExplanation.style.display = "none";
   lastRequestedProblem = problemSet;
   answerForm.innerHTML = "";
+  responseText.innerHTML = "";
+  problemExplanation.innerHTML = "";
   problemText.innerHTML = problem;
   if (currentPossibleAnswers[0] == "shortresponse") for (var i = 0; i < currentAnswer.length; i++) {
     const input = document.createElement("input");
@@ -81,6 +87,8 @@ function checkAnswer() {
   }
   else {
     responseText.innerHTML = "Incorrect. The answer is ";
+    problemExplanation.innerHTML = currentExplanation;
+    if (currentExplanation != "") problemExplanation.style.display = "block";
     for (var i = 0; i < currentAnswer.length; i++) {
       if (i == currentAnswer.length - 1) responseText.innerHTML += currentAnswer[i] + ".";
       else responseText.innerHTML += currentAnswer[i] + " ";
@@ -132,6 +140,7 @@ function buoyantForceSubmerged() {
   const density = getRandomValue(1000, 300, 1);
   currentAnswer = [(Math.round(Math.abs(mass * 10 - sideLength * sideLength * sideLength * density * 10) * 100) / 100).toString()];
   currentPossibleAnswers = ["shortresponse"];
+  currentExplanation = `We want to find the net force acting on the cube, which will be the forces in one direction subtracted from the forces in the opposite, as we do not have any horizontal forces. The force down is equal to the weight of the cube, or m * g (${mass} * 10). The force up is equal to the buoyant force, or p<sub>fluid</sub> * g * V<sub>submerged</sub>. Since we know all of the cube is submerged, we can calculate the buoyant force as ${density} * 10 * ${Math.round(sideLength * sideLength * sideLength * 1000) / 1000}. Subtracting the two gives us the net force of ${currentAnswer[0]}N.`;
   return `There is a cube with a mass of ${mass}kg and side length ${sideLength}m submerged in a fluid of density ${density}kg/m<sup>3</sup>. Find the magnitude of the net force acting on the cube. (g = 10, round to 2 decimals)`;
 }
 

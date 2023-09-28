@@ -141,3 +141,26 @@ button:hover {
   padding: 0.5rem 1rem;
   cursor: pointer;
 }
+
+.explanation {
+  font-size: var(--font-size-small);
+  font-weight: 400;
+  margin-left: 1rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  background-color: var(--dark-background);
+  width: fit-content;
+  height: fit-content;
+  padding: 0.7rem 1rem;
+  align-items: flex-end;
+  float: right;
+  margin-right: 2rem;
+}
+
+.column {
+  width: 100%;
+}
+
+.section {
+  display: flex;
+}
