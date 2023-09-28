@@ -24,7 +24,6 @@ function getProblem(problemSet) {
   for (var i = 0; i < currentAnswer.length; i++) {
     const input = document.createElement("input");
     const label = document.createElement("label");
-    input.type = "number";
     input.classList += "answerinput";
     input.id = i;
     label.for = i;
@@ -39,7 +38,7 @@ function getProblem(problemSet) {
 function checkAnswer() {
   var correct = true;
   for (var i = 0; i < currentAnswer.length; i++) {
-    if (answerForm.children[i * 2 + 1].value != currentAnswer[i]) correct = false;
+    if (answerForm.children[i * 2 + 1].value.replace(/\s/g, '') != currentAnswer[i].replace(/\s/g, '')) correct = false;
   }
 
   if (correct) {
@@ -95,7 +94,7 @@ function buoyantForceSubmerged() {
   const mass = getRandomValue(200, 150, 2);
   const sideLength = getRandomValue(0.5, 0.2, 2);
   const density = getRandomValue(1000, 300, 1);
-  currentAnswer = [Math.round(Math.abs(mass * 10 - sideLength * sideLength * sideLength * density * 10) * 100) / 100];
+  currentAnswer = [(Math.round(Math.abs(mass * 10 - sideLength * sideLength * sideLength * density * 10) * 100) / 100).toString()];
   return `There is a cube with a mass of ${mass}kg and side length ${sideLength}m submerged in a fluid of density ${density}kg/m<sup>3</sup>. Find the magnitude of the net force acting on the cube. (g = 10, round to 2 decimals)`;
 }
 
@@ -103,7 +102,7 @@ function buoyantForceFloating() {
   const sideLength = getRandomValue(0.5, 0.2, 2);
   const density = getRandomValue(1000, 300, 1);
   const depth = getRandomValue(sideLength / 2, sideLength / 2, 2);
-  currentAnswer = [Math.round(sideLength * sideLength * depth * density * 100) / 100];
+  currentAnswer = [(Math.round(sideLength * sideLength * depth * density * 100) / 100).toString()];
   return `There is a cube with side length ${sideLength}m floating in a fluid of density ${density}kg/m3 with its bottom edge ${depth}m below the surface. Find the mass of the cube. (g = 10, round to 2 decimals)`;
 }
 
@@ -127,22 +126,27 @@ function powerRule() {
     while (exponents[i] == 0) exponents[i] = getRandomValue(0, 8, 0);
     
     if (i == 0) {
-      if (coefficients[i] == 1) {
-        expression += "x" + (exponents[i] == 1 ? "" : "<sup>" + exponents[i] + "</sup>");
+      if (Math.abs(coefficients[i]) == 1) {
+        expression += (Math.sign(coefficients[i]) == 1 ? "" : "-") + "x" + (exponents[i] == 1 ? "" : "<sup>" + exponents[i] + "</sup>");
         if (exponents[i] == 1) answer += coefficients[i];
-        else answer += coefficients[i] * exponents[i];
+        else answer += (coefficients[i] * exponents[i]) + "x^" + (exponents[i] - 1);
       }
       else {
         expression += coefficients[i] + "x" + (exponents[i] == 1 ? "" : "<sup>" + exponents[i] + "</sup>");
         if (exponents[i] == 1) answer += coefficients[i];
+        else answer += coefficients[i] * exponents[i] + "x^" + (exponents[i] - 1);
       }
     }
     else {
-      if (coefficients[i] == 1) {
-        expression += " + x" + (exponents[i] == 1 ? "" : "<sup>" + exponents[i] + "</sup>");
+      if (Math.abs(coefficients[i]) == 1) {
+        expression += (Math.sign(coefficients[i]) == 1 ? " + " : " - ") + "x" + (exponents[i] == 1 ? "" : "<sup>" + exponents[i] + "</sup>");
+        if (exponents[i] == 1) answer += coefficients[i];
+        else answer += (Math.sign(exponents[i]) == 1 ? " + " : " - ") + Math.abs(exponents[i]) + "x" + (exponents[i] - 1 == 1 ? "" : "^" + (exponents[i] - 1));
       }
       else {
-        expression += " " + (Math.sign(coefficients[i]) == 1 ? "+" : "-") + " " + Math.abs(coefficients[i]) + "x" + (exponents[i] == 1 ? "" : "<sup>" + exponents[i] + "</sup>");
+        expression += (Math.sign(coefficients[i]) == 1 ? " + " : " - ") + Math.abs(coefficients[i]) + "x" + (exponents[i] == 1 ? "" : "<sup>" + exponents[i] + "</sup>");
+        if (exponents[i] == 1) answer += (Math.sign(coefficients[i]) == 1 ? " + " : " - ") + Math.abs(coefficients[i]);
+        else answer += (Math.sign(coefficients[i] * exponents[i]) == 1 ? " + " : " - ") + Math.abs(coefficients[i] * exponents[i]) + "x" + (exponents[i] - 1 == 1 ? "" : "^" + (exponents[i] - 1));
       }
     }
   }

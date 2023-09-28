@@ -97,12 +97,7 @@ button:hover {
   font-family: "Open Sans";
   font-size: calc(var(--font-size-small) * 0.8);
   outline: none;
-  appearance: textfield;
   margin-bottom: 1rem;
-}
-
-.answerinput::-webkit-outer-spin-button,.answerinput::-webkit-inner-spin-button {
-  display: none;
 }
 
 .response {
