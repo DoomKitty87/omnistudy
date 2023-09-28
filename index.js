@@ -1,4 +1,5 @@
 var currentAnswer = [];
+var currentPossibleAnswers = [];
 const problemText = document.getElementById("problem");
 const answerForm = document.getElementById("answerform");
 const responseText = document.getElementById("response");
@@ -21,7 +22,7 @@ function getProblem(problemSet) {
   lastRequestedProblem = problemSet;
   answerForm.innerHTML = "";
   problemText.innerHTML = problem;
-  for (var i = 0; i < currentAnswer.length; i++) {
+  if (currentPossibleAnswers[0] == "shortresponse") for (var i = 0; i < currentAnswer.length; i++) {
     const input = document.createElement("input");
     const label = document.createElement("label");
     input.classList += "answerinput";
@@ -31,14 +32,46 @@ function getProblem(problemSet) {
     label.classList += "answerlabel";
     answerForm.appendChild(label);
     answerForm.appendChild(input);
-    answerForm.appendChild(document.createElement("br"))
+    answerForm.appendChild(document.createElement("br"));
+  }
+  else for (var i = 0; i < currentPossibleAnswers.length; i++) {
+    const input = document.createElement("input");
+    const label = document.createElement("label");
+    input.classList += "answerinput";
+    input.type = "radio";
+    input.name = "answer";
+    input.id = currentPossibleAnswers[i];
+    label.for = i;
+    label.innerHTML = currentPossibleAnswers[i].charAt(0).toUpperCase() + currentPossibleAnswers[i].slice(1);
+    label.classList += "answerlabel";
+    answerForm.appendChild(label);
+    answerForm.appendChild(input);
+    answerForm.appendChild(document.createElement("br"));
+    answerForm.appendChild(document.createElement("br"));
   }
 }
 
 function checkAnswer() {
   var correct = true;
-  for (var i = 0; i < currentAnswer.length; i++) {
-    if (answerForm.children[i * 2 + 1].value.replace(/\s/g, '') != currentAnswer[i].replace(/\s/g, '')) correct = false;
+  if (currentPossibleAnswers[0] == "shortresponse") {
+    var answered = false;
+    for (var i = 0; i < currentAnswer.length; i++) {
+      if (answerForm.children[i * 4 + 1].value != "") answered = true;
+    }
+    if (!answered) return;
+    for (var i = 0; i < currentAnswer.length; i++) {
+      if (answerForm.children[i * 4 + 1].value.replace(/\s/g, '') != currentAnswer[i].replace(/\s/g, '')) correct = false;
+    }
+  }
+  else {
+    var answered = false;
+    for (var i = 0; i < currentPossibleAnswers.length; i++) {
+      if (answerForm.children[i * 4 + 1].checked) answered = true;
+    }
+    if (!answered) return;
+    for (var i = 0; i < currentPossibleAnswers.length; i++) {
+      if (answerForm.children[i * 4 + 1].checked && answerForm.children[i * 4 + 1].id != currentAnswer[0]) correct = false;
+    }
   }
 
   if (correct) {
@@ -70,8 +103,9 @@ function setType(type) {
   generateProblem();
 }
 
-function spawnConfetti() {
-  confettiHolder.innerHTML = "";
+async function spawnConfetti() {
+  const confettiTemp = document.createElement("div");
+  confettiHolder.appendChild(confettiTemp);
   for (var i = Math.round(Math.random() * 100) + 50; i > 0; i--) {
     const confetti = document.createElement("div");
     confetti.classList.add("confetti");
@@ -80,14 +114,16 @@ function spawnConfetti() {
     confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
     confetti.style.left = Math.random() * 100 + "%";
     confetti.style.transition = `top ${(Math.random() - 0.5) * 2 + 5}s, left ${(Math.random() - 0.5) * 2 + 5}s, transform ${(Math.random() - 0.5) * 2 + 5}s`;
-    confettiHolder.appendChild(confetti);
+    confettiTemp.appendChild(confetti);
   }
   responseText.offsetHeight;
-  for (var i = 0; i < confettiHolder.children.length; i++) {
-    confettiHolder.children[i].style.top = "200vh";
-    confettiHolder.children[i].style.transform = `rotate(${Math.random() * 360 - 180}deg)`;
-    confettiHolder.children[i].style.left = (parseFloat(confettiHolder.children[i].style.left.split("%")[0]) + (Math.random() - 0.5) * 20) + "%";
+  for (var i = 0; i < confettiTemp.children.length; i++) {
+    confettiTemp.children[i].style.top = "200vh";
+    confettiTemp.children[i].style.transform = `rotate(${Math.random() * 360 - 180}deg)`;
+    confettiTemp.children[i].style.left = (parseFloat(confettiTemp.children[i].style.left.split("%")[0]) + (Math.random() - 0.5) * 20) + "%";
   }
+  await new Promise(resolve => setTimeout(resolve, 5000));
+  confettiTemp.remove();
 }
 
 function buoyantForceSubmerged() {
@@ -95,6 +131,7 @@ function buoyantForceSubmerged() {
   const sideLength = getRandomValue(0.5, 0.2, 2);
   const density = getRandomValue(1000, 300, 1);
   currentAnswer = [(Math.round(Math.abs(mass * 10 - sideLength * sideLength * sideLength * density * 10) * 100) / 100).toString()];
+  currentPossibleAnswers = ["shortresponse"];
   return `There is a cube with a mass of ${mass}kg and side length ${sideLength}m submerged in a fluid of density ${density}kg/m<sup>3</sup>. Find the magnitude of the net force acting on the cube. (g = 10, round to 2 decimals)`;
 }
 
@@ -103,13 +140,15 @@ function buoyantForceFloating() {
   const density = getRandomValue(1000, 300, 1);
   const depth = getRandomValue(sideLength / 2, sideLength / 2, 2);
   currentAnswer = [(Math.round(sideLength * sideLength * depth * density * 100) / 100).toString()];
+  currentPossibleAnswers = ["shortresponse"];
   return `There is a cube with side length ${sideLength}m floating in a fluid of density ${density}kg/m3 with its bottom edge ${depth}m below the surface. Find the mass of the cube. (g = 10, round to 2 decimals)`;
 }
 
 function pValueConclusion() {
   const pValue = getRandomValue(0.2, 0.3999, 3);
   const alphaValue = [0.01, 0.05, 0.1, 0.15][getRandomValue(2, 2, 0)];
-  currentAnswer = [pValue > alphaValue ? true : false];
+  currentAnswer = [pValue > alphaValue ? "true" : "false"];
+  currentPossibleAnswers = ["true", "false"];
   return `An experiment's z/t-score resulted in a p-value of ${pValue}, and the designers of the experiment chose to use an alpha value of ${alphaValue}. Is there enough evidence to reject the null hypothesis? (true or false)`;
 }
 
@@ -159,5 +198,6 @@ function powerRule() {
 
   expression = "f(x) = " + expression + ". Find f'(x).";
   currentAnswer = [answer];
+  currentPossibleAnswers = ["shortresponse"];
   return expression;
 }
