@@ -130,6 +130,7 @@ function powerRule() {
       if (coefficients[i] == 1) {
         expression += "x" + (exponents[i] == 1 ? "" : "<sup>" + exponents[i] + "</sup>");
         if (exponents[i] == 1) answer += coefficients[i];
+        else answer += coefficients[i] * exponents[i];
       }
       else {
         expression += coefficients[i] + "x" + (exponents[i] == 1 ? "" : "<sup>" + exponents[i] + "</sup>");
