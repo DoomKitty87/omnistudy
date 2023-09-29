@@ -4,10 +4,11 @@
 }
 
 :root {
-  --main-text-color: #fffeff;
-  --highlighted-text-color: #fffeff;
-  --dark-background: #0a1111;
-  --light-background: #0a1111ef;
+  --main-text-color: #bea3d9;
+  --highlighted-text-color: #bea3d9;
+  --dark-text: #554191;
+  --dark-background: #554191;
+  --light-background: #ffffff;
   font-size: 1vw;
   --font-size-small: 1.3rem;
   --font-size-medium: 2.2rem;
@@ -23,13 +24,13 @@ body {
 }
 
 button {
-  background-color: var(--dark-background);
-  color: var(--main-text-color);
+  background: transparent;
+  color: var(--dark-text);
   border-width: 0;
   cursor: pointer;
   font-weight: 200;
   font-size: var(--font-size-small);
-  padding: 0.6rem 1.5rem;
+  padding: 0.6rem 1rem;
   transition: transform 0.5s ease;
   margin-left: 1rem;
 }
@@ -73,14 +74,16 @@ button:hover {
   height: fit-content;
   width: 80rem;
   font-weight: 300;
+  color: var(--dark-text);
 }
 
 .answerform {
-  background-color: var(--dark-background);
+  background-color: var(--light-background);
   width: fit-content;
   margin-left: 1rem;
   padding: 0.8rem 1rem 0rem 1rem;
   margin-bottom: -2rem;
+  color: var(--dark-text);
 }
 
 .answerlabel {
@@ -90,9 +93,9 @@ button:hover {
 }
 
 .answerinput {
-  border-color: var(--highlighted-text-color);
+  border-color: var(--dark-text);
   background-color: transparent;
-  color: var(--main-text-color);
+  color: var(--dark-text);
   border-radius: 0.2rem;
   border-style: solid;
   font-family: "Open Sans";
@@ -106,17 +109,18 @@ button:hover {
   height: 1.2rem;
   position: relative;
   top: 0.2rem;
-  border: 0.1rem solid var(--highlighted-text-color);
+  border: 0.1rem solid var(--dark-text);
   appearance: none;
   margin: 0 0 0 0.75rem;
 }
 
 .answerinput[type="radio"]:checked {
-  background-color: var(--highlighted-text-color);
+  background-color: var(--dark-text);
 }
 
 .response {
   margin-left: 1rem;
+  color: var(--dark-text);
 }
 
 .confettiholder {
@@ -135,10 +139,9 @@ button:hover {
 }
 
 .selectproblems {
-  background-color: var(--dark-background);
   border: none;
   font-size: var(--font-size-small);
-  color: var(--main-text-color);
+  color: var(--dark-text);
   padding: 0.5rem 1rem;
   cursor: pointer;
 }
@@ -149,7 +152,7 @@ button:hover {
   margin-left: 1rem;
   margin-top: 0;
   margin-bottom: 0;
-  background-color: var(--dark-background);
+  color: var(--dark-text);
   width: fit-content;
   height: fit-content;
   padding: 0.7rem 1rem;
