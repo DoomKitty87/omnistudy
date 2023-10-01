@@ -70,7 +70,7 @@ button:hover {
 }
 
 .problem {
-  padding: 1rem 1rem;
+  padding: 1rem 2rem;
   height: fit-content;
   width: 80rem;
   font-weight: 300;
@@ -183,4 +183,6 @@ button:hover {
 
 .footertext {
   margin-left: 2rem;
+  text-decoration: none;
+  color: var(--main-text-color);
 }
