@@ -5,7 +5,7 @@
 
 :root {
   --main-text-color: #94aaff;
-  --highlighted-text-color: #94aaff;
+  --highlighted-text-color: #bfccff;
   --dark-text: #101218;
   --dark-background: #101218;
   --light-background: #94aaff;
@@ -57,8 +57,8 @@ button:hover {
   margin-left: 1rem;
   margin-top: 0;
   font-size: var(--font-size-large);
-  font-weight: 300;
-  text-shadow: var(--light-background) 0.15rem 0.15rem;
+  font-weight: 400;
+  text-shadow: var(--highlighted-text-color) 0.1rem 0.1rem;
 }
 
 .headerbutton {
