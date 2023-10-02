@@ -14,11 +14,13 @@ const mcq = document.getElementById("mcq");
 
 const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating", "Fluid Flow Conservation"], ["Power Rule"], ["P Value Conclusion"]];
 
-function generateProblem() {
-  const type = problemOptions.selectedIndex;
+function generateProblem(typeoverride=-1) {
+  var type = problemOptions.selectedIndex;
+  if (typeoverride != -1) type = typeoverride;
   var problemSet = problemTypes[currentType][type].replace(/ /g, "");
   problemSet = problemSet[0].toLowerCase() + problemSet.slice(1);
-  getProblem(problemSet);
+  if (problemSet != "random") getProblem(problemSet);
+  else random();
 }
 
 function getProblem(problemSet) {
@@ -122,7 +124,7 @@ function setType(type) {
     types[i].classList.remove("selected");
   }
   types[type].classList.add("selected");
-  const rand = document.createElement("options");
+  const rand = document.createElement("option");
   rand.innerHTML = "Random";
   problemOptions.appendChild(rand);
   for (var i = 0; i < problemTypes[type].length; i++) {
@@ -157,7 +159,7 @@ async function spawnConfetti() {
 }
 
 function random() {
- return;
+  generateProblem(Math.floor(Math.random() * problemTypes[currentType].length));
 }
 
 function buoyantForceSubmerged(mcq) {
