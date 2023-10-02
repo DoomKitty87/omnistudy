@@ -4,11 +4,11 @@
 }
 
 :root {
-  --main-text-color: #bea3d9;
-  --highlighted-text-color: #bea3d9;
-  --dark-text: #554191;
-  --dark-background: #554191;
-  --light-background: #ffffff;
+  --main-text-color: #94aaff;
+  --highlighted-text-color: #94aaff;
+  --dark-text: #101218;
+  --dark-background: #101218;
+  --light-background: #94aaff;
   font-size: 1vw;
   --font-size-small: 1.3rem;
   --font-size-medium: 2.2rem;
@@ -33,10 +33,11 @@ button {
   padding: 0.6rem 1rem;
   transition: transform 0.5s ease;
   margin-left: 1rem;
+  transform: scale(0.95);
 }
 
 button:hover {
-  transform: scale(1.05);
+  transform: scale(1);
 }
 
 .headerbar {
@@ -46,26 +47,28 @@ button:hover {
   background-color: var(--dark-background);
   padding: 1rem;
   padding-bottom: 0;
+  box-shadow: #101218 0px 0px 10px;
 }
 
 .title {
   margin-left: 1rem;
   margin-top: 0;
   font-size: var(--font-size-large);
-  font-weight: 600;
+  font-weight: 300;
 }
 
 .headerbutton {
   margin-top: 0;
   margin-left: 5rem;
   font-size: var(--font-size-medium);
-  font-weight: 400;
+  font-weight: 300;
   cursor: pointer;
   transition: color 0.5s ease, transform 0.5s ease;
+  transform: scale(0.95);
 }
 
 .headerbutton:hover {
-  transform: scale(1.05);
+  transform: scale(1);
   color: var(--highlighted-text-color);
 }
 
@@ -142,6 +145,7 @@ button:hover {
   border: none;
   font-size: var(--font-size-small);
   color: var(--dark-text);
+  background: transparent;
   padding: 0.5rem 1rem;
   cursor: pointer;
 }
@@ -179,6 +183,7 @@ button:hover {
   height: 15%;
   background-color: var(--dark-background);
   justify-content: center;
+  box-shadow: #101218 0px 0px 10px;
 }
 
 .footertext {
