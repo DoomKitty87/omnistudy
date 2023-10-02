@@ -31,9 +31,11 @@ button {
   font-weight: 200;
   font-size: var(--font-size-small);
   padding: 0.6rem 1rem;
-  transition: transform 0.5s ease;
+  transition: transform 0.25s ease;
   margin-left: 1rem;
   transform: scale(0.95);
+  border: var(--dark-background) 0.15rem solid;
+  border-radius: 1rem;
 }
 
 button:hover {
@@ -63,13 +65,17 @@ button:hover {
   font-size: var(--font-size-medium);
   font-weight: 300;
   cursor: pointer;
-  transition: color 0.5s ease, transform 0.5s ease;
+  transition: color 0.25s ease, transform 0.25s ease, font-weight 0.25s ease;
   transform: scale(0.95);
 }
 
 .headerbutton:hover {
   transform: scale(1);
   color: var(--highlighted-text-color);
+}
+
+.selected {
+  font-weight: 600;
 }
 
 .problem {

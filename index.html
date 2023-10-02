@@ -3,7 +3,7 @@
 <head>
   <link rel="stylesheet" href="style.css">
   <meta charset="UTF-8" />
-  <title>Study for AP Classes</title>
+  <title>APStudy - Study for AP Classes</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="" />
 </head>
@@ -11,9 +11,11 @@
   <div class="confettiholder" id="confettiholder"></div>
   <div class="headerbar">
     <h1 class="title">APStudy</h1>
+    <div id="headerbuttons" style="display:flex">
     <h2 class="headerbutton" onclick="setType(0)">Physics</h2>
     <h2 class="headerbutton" onclick="setType(1)">Calculus</h2>
     <h2 class="headerbutton" onclick="setType(2)">Statistics</h2>
+  </div>
   </div>
   <h1 class="problem" id="problem"></h1>
   <div class="section">
@@ -38,7 +40,7 @@
 </body>
 <script src="index.js" onload="setType(0)"></script>
 <script>
-  document.getElementById("email").innerHTML += "contact" + "@" + "astanik" + "." + "dev";
-  document.getElementById("email").parentNode.href += "contact" + "@" + "astanik" + "." + "dev";
+  document.getElementById("email").innerHTML += "contact+apstudy" + "@" + "astanik" + "." + "dev";
+  document.getElementById("email").parentNode.href += "contact+apstudy" + "@" + "astanik" + "." + "dev";
 </script>
 </html>

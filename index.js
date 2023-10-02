@@ -9,6 +9,7 @@ const problemOptions = document.getElementById("problemoptions");
 const problemExplanation = document.getElementById("explanation");
 var lastRequestedProblem = "";
 var currentType = 0;
+var types = document.getElementById("headerbuttons").children;
 
 const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating", "Fluid Flow Conservation"], ["Power Rule"], ["P Value Conclusion"]];
 
@@ -103,6 +104,10 @@ function getRandomValue(mean, variance, decimals) {
 function setType(type) {
   currentType = type;
   problemOptions.innerHTML = "";
+  for (var i = 0; i < types.length;  i++) {
+    types[i].classList.remove("selected");
+  }
+  types[type].classList.add("selected");
   for (var i = 0; i < problemTypes[type].length; i++) {
     const option = document.createElement("option");
     option.innerHTML = problemTypes[type][i];
