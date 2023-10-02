@@ -122,6 +122,9 @@ function setType(type) {
     types[i].classList.remove("selected");
   }
   types[type].classList.add("selected");
+  const rand = document.createElement("options");
+  rand.innerHTML = "Random";
+  problemOptions.appendChild(rand);
   for (var i = 0; i < problemTypes[type].length; i++) {
     const option = document.createElement("option");
     option.innerHTML = problemTypes[type][i];
@@ -151,6 +154,10 @@ async function spawnConfetti() {
   }
   await new Promise(resolve => setTimeout(resolve, 5000));
   confettiTemp.remove();
+}
+
+function random() {
+ return;
 }
 
 function buoyantForceSubmerged(mcq) {
