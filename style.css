@@ -33,9 +33,10 @@ button {
   padding: 0.6rem 1rem;
   transition: transform 0.25s ease;
   margin-left: 1rem;
-  transform: scale(0.95);
-  border: var(--dark-background) 0.15rem solid;
-  border-radius: 1rem;
+  transform: scale(0.98);
+  background-color: var(--dark-background);
+  border-radius: 0.5rem;
+  color: var(--main-text-color);
 }
 
 button:hover {
@@ -49,7 +50,7 @@ button:hover {
   background-color: var(--dark-background);
   padding: 1rem;
   padding-bottom: 0;
-  box-shadow: #101218 0px 0px 10px;
+  box-shadow: var(--dark-background) 0px 0px 10px;
 }
 
 .title {
@@ -57,6 +58,7 @@ button:hover {
   margin-top: 0;
   font-size: var(--font-size-large);
   font-weight: 300;
+  text-shadow: var(--light-background) 0.15rem 0.15rem;
 }
 
 .headerbutton {
@@ -66,7 +68,7 @@ button:hover {
   font-weight: 300;
   cursor: pointer;
   transition: color 0.25s ease, transform 0.25s ease, font-weight 0.25s ease;
-  transform: scale(0.95);
+  transform: scale(0.98);
 }
 
 .headerbutton:hover {
@@ -99,6 +101,7 @@ button:hover {
   font-size: var(--font-size-small);
   font-weight: 600;
   margin-right: 0.5rem;
+  color: var(--dark-text);
 }
 
 .answerinput {
@@ -113,7 +116,7 @@ button:hover {
   margin-bottom: 1rem;
 }
 
-.answerinput[type="radio"] {
+.answerinput[type="radio"], .answerinput[type="checkbox"] {
   width: 1.2rem;
   height: 1.2rem;
   position: relative;
@@ -123,7 +126,7 @@ button:hover {
   margin: 0 0 0 0.75rem;
 }
 
-.answerinput[type="radio"]:checked {
+.answerinput[type="radio"]:checked, .answerinput[type="checkbox"]:checked {
   background-color: var(--dark-text);
 }
 
