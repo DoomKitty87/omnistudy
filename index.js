@@ -7,10 +7,13 @@ const responseText = document.getElementById("response");
 const confettiHolder = document.getElementById("confettiholder");
 const problemOptions = document.getElementById("problemoptions");
 const problemExplanation = document.getElementById("explanation");
+const profile = document.getElementById("profile");
 var lastRequestedProblem = "";
 var currentType = 0;
+var currentSettings = 0;
 var types = document.getElementById("headerbuttons").children;
 const mcq = document.getElementById("mcq");
+var activePanel = 0;
 
 const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating", "Fluid Flow Conservation"], ["Power Rule"], ["P Value Conclusion"]];
 
@@ -23,6 +26,72 @@ function generateProblem(typeoverride = -1) {
     problemSet = problemSet[0].toLowerCase() + problemSet.slice(1);
     getProblem(problemSet);
   }
+}
+
+function loadStorage() {
+  for (var i = 0; i < problemTypes.length; i++) {
+    for (var j = 0; j < problemTypes[i].length; j++) {
+      var problemSet = problemTypes[i][j].replace(/ /g, "");
+      problemSet = problemSet[0].toLowerCase() + problemSet.slice(1);
+      if (!localStorage.getItem(problemSet)) localStorage.setItem(problemSet, 0);
+      if (!localStorage.getItem(problemSet + "incorrect")) localStorage.setItem(problemSet + "incorrect", 0);
+    }
+  }
+}
+
+function openSettings() {
+  currentSettings = 1;
+  setSettingType();
+  if (activePanel != 1) setActivePanel(1);
+}
+
+function openProfile() {
+  reloadProfile();
+  currentSettings = 0;
+  setSettingType();
+  if (activePanel != 1) setActivePanel(1);
+}
+
+function reloadProfile() {
+  profile.innerHTML = "";
+  for (var i = 0; i < problemTypes.length; i++) {
+    for (var j = 0; j < problemTypes[i].length; j++) {
+      var problemSet = problemTypes[i][j].replace(/ /g, "");
+      problemSet = problemSet[0].toLowerCase() + problemSet.slice(1);
+      const stat = document.createElement("h2");
+      stat.classList.add("stat");
+      stat.innerHTML = problemTypes[i][j] + ": " + localStorage.getItem(problemSet) + "/" + (parseInt(localStorage.getItem(problemSet)) + parseInt(localStorage.getItem(problemSet + "incorrect")));
+      profile.appendChild(stat);
+    }
+  }
+}
+
+function setSettingType() {
+  if (currentSettings == 0) {
+    profile.style.display = "block";
+    document.getElementById("settings").style.display = "none";
+  }
+  else if (currentSettings == 1) {
+    profile.style.display = "none";
+    document.getElementById("settings").style.display = "block";
+  }
+}
+
+function setActivePanel(section) {
+  activePanel = section;
+  if (section == 0) {
+    document.getElementById("problempanel").style.display = "block";
+    document.getElementById("settingspanel").style.display = "none";
+   }
+  else {
+    document.getElementById("problempanel").style.display = "none";
+    document.getElementById("settingspanel").style.display = "block";
+   }
+}
+
+function clearSaved() {
+  localStorage.clear();
+  location.reload();
 }
 
 function getProblem(problemSet) {
@@ -89,9 +158,11 @@ function checkAnswer() {
   if (correct) {
     responseText.innerHTML = "Correct!";
     spawnConfetti();
+    localStorage.setItem(lastRequestedProblem, parseInt(localStorage.getItem(lastRequestedProblem)) + 1);
     getProblem(lastRequestedProblem);
   }
   else {
+    localStorage.setItem(lastRequestedProblem + "incorrect", parseInt(localStorage.getItem(lastRequestedProblem + "incorrect")) + 1);
     responseText.innerHTML = "Incorrect. The answer is ";
     problemExplanation.innerHTML = currentExplanation;
     if (currentExplanation != "") problemExplanation.style.display = "block";
@@ -121,6 +192,7 @@ function generateMCQAnswers(answer, text = false) {
 }
 
 function setType(type) {
+  if (activePanel != 0) setActivePanel(0);
   currentType = type;
   problemOptions.innerHTML = "";
   for (var i = 0; i < types.length;  i++) {

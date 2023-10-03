@@ -15,31 +15,43 @@
     <h2 class="headerbutton" onclick="setType(0)">Physics</h2>
     <h2 class="headerbutton" onclick="setType(1)">Calculus</h2>
     <h2 class="headerbutton" onclick="setType(2)">Statistics</h2>
+    </div>
+    <div id="headerbuttons2" style="display:flex;width:100%;justify-content:flex-end;padding-right:1rem;">
+      <h2 class="headerbutton" onclick="openProfile()">Profile</h2>
+      <h2 class="headerbutton" onclick="openSettings()">Settings</h2>
+    </div>
   </div>
+  <div class="section" id="problempanel">
+    <h1 class="problem" id="problem"></h1>
+    <div class="column">
+      <button onclick="generateProblem()">Generate Problem</button>
+      <select class="selectproblems" id="problemoptions">
+      </select>
+      <input class="answerinput" type="checkbox" id="mcq">
+      <label for="mcq" class="answerlabel" style="position: relative; top: 0.08rem; margin-left: 0.5rem;">All MCQs</label>
+      <br><br>
+      <div class="answerform" id="answerform">
+      </div><br><br>
+      <div class="buttonwrapper"><button onclick="checkAnswer()">Check Answer</button></div>
+      <h3 class="response" id="response"></h3>
+    </div>
+    <div class="column">
+      <p class="explanation" id="explanation"></p>
+    </div>
   </div>
-  <h1 class="problem" id="problem"></h1>
-  <div class="section">
-  <div class="column">
-  <button onclick="generateProblem()">Generate Problem</button>
-  <select class="selectproblems" id="problemoptions">
-  </select>
-  <input class="answerinput" type="checkbox" id="mcq">
-  <label for="mcq" class="answerlabel" style="position: relative; top: 0.08rem; margin-left: 0.5rem;">All MCQs</label>
-  <br><br>
-  <div class="answerform" id="answerform">
-  </div><br><br>
-  <div class="buttonwrapper"><button onclick="checkAnswer()">Check Answer</button></div>
-  <h3 class="response" id="response"></h3>
-  </div>
-  <div class="column">
-  <p class="explanation" id="explanation"></p>
-  </div>
+  <div class="section" id="settingspanel" style="display:none;margin-top: 3rem;">
+    <div class="column" id="profile">
+      
+    </div>
+    <div class="column" id="settings">
+      <button onclick="clearSaved()">Clear Saved Data</button>
+    </div>
   </div>
   <div class="footer">
     <a class="footertext" href="mailto: "><h3 id="email">Suggestions? Email me at </h3></a>
   </div>
 </body>
-<script src="index.js" onload="setType(0)"></script>
+<script src="index.js" onload="setType(0);loadStorage()"></script>
 <script>
   document.getElementById("email").innerHTML += "contact+apstudy" + "@" + "astanik" + "." + "dev";
   document.getElementById("email").parentNode.href += "contact+apstudy" + "@" + "astanik" + "." + "dev";

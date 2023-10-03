@@ -80,6 +80,11 @@ button:hover {
   font-weight: 600;
 }
 
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
 .problem {
   padding: 1rem 2rem;
   height: fit-content;
@@ -199,4 +204,8 @@ button:hover {
   margin-left: 2rem;
   text-decoration: none;
   color: var(--main-text-color);
+}
+
+.stat {
+  color: var(--dark-text);
 }
