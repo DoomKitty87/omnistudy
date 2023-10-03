@@ -62,7 +62,7 @@ function reloadProfile() {
       labels: [],
       datasets: [{
         label: "Percentage Correct",
-        backgroundColor: "#bfccff",
+        backgroundColor: "#101218a0",
         data: []
       }]
     },
