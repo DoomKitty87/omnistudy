@@ -106,13 +106,14 @@ function getRandomValue(mean, variance, decimals) {
   return Math.round((mean + (Math.random() - 0.5) * variance) * Math.pow(10, decimals)) / Math.pow(10, decimals);
 }
 
-function generateMCQAnswers(answer) {
+function generateMCQAnswers(answer, text = false) {
   answers = [];
 
   answers[Math.floor(Math.random() * 4)] = answer;
   for (var i = 0; i < 4; i++) {
     if (answers[i] == null) {
-      answers[i] = (Math.round(answer * getRandomValue(1, 1, 2) * 100) / 100).toString();
+      if (!text) answers[i] = (Math.round(answer * getRandomValue(1, 1, 2) * 100) / 100).toString();
+      else answers[i] = answer.substr(Math.floor(Math.random() * answer.length));
     }
   }
 
@@ -279,7 +280,7 @@ function powerRule(mcq) {
 
   expression = "f(x) = " + expression + ". Find f'(x).";
   currentAnswer = [answer];
-  if (mcq) currentPossibleAnswers = ["shortresponse"];
+  if (mcq) currentPossibleAnswers = generateMCQAnswers(answer, true);
   else currentPossibleAnswers = ["shortresponse"];
   currentExplanation = `We can use the power rule to find the derivative of each term, then add them together. The power rule states that the derivative of x<sup>n</sup> is n * x<sup>n - 1</sup>. Therefore, f'(x) = ${formattedAnswer}.`;
   return expression;
