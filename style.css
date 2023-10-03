@@ -185,6 +185,8 @@ button:hover {
 
 .section {
   display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .footer {
@@ -208,4 +210,22 @@ button:hover {
 
 .stat {
   color: var(--dark-text);
+  margin-left: 2rem;
+}
+
+.stattitle {
+  color: var(--dark-text);
+}
+
+.menu {
+  margin-left: 2rem;
+}
+.chart {
+  display: block;
+  margin-left: 2rem;
+  max-width: 40rem;
+  max-height: 40rem;
+  position: absolute;
+  top: 10rem;
+  right: 5rem;
 }

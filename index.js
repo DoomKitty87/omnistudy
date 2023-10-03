@@ -8,6 +8,7 @@ const confettiHolder = document.getElementById("confettiholder");
 const problemOptions = document.getElementById("problemoptions");
 const problemExplanation = document.getElementById("explanation");
 const profile = document.getElementById("profile");
+const profileItems = document.getElementById("profileitems");
 var lastRequestedProblem = "";
 var currentType = 0;
 var currentSettings = 0;
@@ -15,8 +16,8 @@ const types = document.getElementById("headerbuttons").children;
 const settings = document.getElementById("headerbuttons2").children;
 const mcq = document.getElementById("mcq");
 var activePanel = 0;
-
 const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating", "Fluid Flow Conservation"], ["Power Rule"], ["P Value Conclusion"]];
+var chartId;
 
 function generateProblem(typeoverride = -1) {
   var type = problemOptions.selectedIndex  - 1;
@@ -54,17 +55,83 @@ function openProfile() {
 }
 
 function reloadProfile() {
-  profile.innerHTML = "";
+  if (chartId) chartId.destroy();
+  chartId = new Chart(document.getElementById("chart").getContext("2d"), {
+    type: "radar",
+    data: {
+      labels: [],
+      datasets: [{
+        label: "Percentage Correct",
+        backgroundColor: "#bfccff",
+        data: []
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+      elements: {
+        line: {
+          borderWidth: 0
+        }
+      },
+      title: {
+        display: false,
+        text: "Problem Type Performance"
+      },
+      scales: {
+        r: {
+          pointLabels: {
+            color: "#101218",
+            font: {
+              size: 24,
+              family: "Open Sans"
+            }
+          },
+          grid: {
+            color: "#94aaff"
+          },
+          angleLines: {
+            display: false
+          },
+          ticks: {
+            display: false
+          },
+          min: 0,
+          max: 100
+        }
+      }
+    }
+  });
+  const chartLabels = [];
+  const chartData = [];
+  profileItems.innerHTML = "";
   for (var i = 0; i < problemTypes.length; i++) {
+    var typeTitle = document.createElement("h1");
+    typeTitle.classList.add("stattitle");
+    typeTitle.innerHTML = types[i].innerHTML;
+    profileItems.appendChild(typeTitle);
+    var typeData = 0;
+    var exempt = 0;
     for (var j = 0; j < problemTypes[i].length; j++) {
       var problemSet = problemTypes[i][j].replace(/ /g, "");
       problemSet = problemSet[0].toLowerCase() + problemSet.slice(1);
       const stat = document.createElement("h2");
       stat.classList.add("stat");
       stat.innerHTML = problemTypes[i][j] + ": " + localStorage.getItem(problemSet) + "/" + (parseInt(localStorage.getItem(problemSet)) + parseInt(localStorage.getItem(problemSet + "incorrect")));
-      profile.appendChild(stat);
+      profileItems.appendChild(stat);
+      var percentage = localStorage.getItem(problemSet) / (parseInt(localStorage.getItem(problemSet)) + parseInt(localStorage.getItem(problemSet + "incorrect")));
+      if ((parseInt(localStorage.getItem(problemSet)) + parseInt(localStorage.getItem(problemSet + "incorrect"))) == 0) exempt += 1;
+      else typeData += percentage;
     }
+    typeData /= problemTypes[i].length - exempt;
+    chartLabels.push(types[i].innerHTML);
+    chartData.push(Math.round(typeData * 100));
   }
+  chartId.data.labels = chartLabels;  
+  chartId.data.datasets[0].data = chartData;
 }
 
 function setSettingType() {

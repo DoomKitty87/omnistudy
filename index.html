@@ -23,6 +23,7 @@
   </div>
   <div class="section" id="problempanel">
     <h1 class="problem" id="problem"></h1>
+    <div class="section" style="flex-direction: row;">
     <div class="column">
       <button onclick="generateProblem()">Generate Problem</button>
       <select class="selectproblems" id="problemoptions">
@@ -38,19 +39,25 @@
     <div class="column">
       <p class="explanation" id="explanation"></p>
     </div>
+    </div>
   </div>
   <div class="section" id="settingspanel" style="display:none;margin-top: 3rem;">
-    <div class="column" id="profile">
-      
+    <div class="menu" id="profile" style="display:flex;flex-direction: row;">
+      <div id="profileitems" style="width: 40rem;">
+      </div>
+      <canvas id="chart" class="chart"></canvas>
     </div>
-    <div class="column" id="settings">
-      <button onclick="clearSaved()">Clear Saved Data</button>
+    <div class="menu" id="settings">
+      <div class="column">
+        <button onclick="clearSaved()">Clear Saved Data</button>
+      </div>
     </div>
   </div>
   <div class="footer">
     <a class="footertext" href="mailto: "><h3 id="email">Suggestions? Email me at </h3></a>
   </div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
 <script src="index.js" onload="setType(0);loadStorage()"></script>
 <script>
   document.getElementById("email").innerHTML += "contact+apstudy" + "@" + "astanik" + "." + "dev";
