@@ -67,6 +67,7 @@ function reloadProfile() {
       }]
     },
     options: {
+      events: [],
       plugins: {
         legend: {
           display: false
@@ -75,6 +76,9 @@ function reloadProfile() {
       elements: {
         line: {
           borderWidth: 0
+        },
+        point: {
+          radius: 0
         }
       },
       title: {
