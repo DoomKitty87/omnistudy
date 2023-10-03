@@ -14,13 +14,15 @@ const mcq = document.getElementById("mcq");
 
 const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating", "Fluid Flow Conservation"], ["Power Rule"], ["P Value Conclusion"]];
 
-function generateProblem(typeoverride=-1) {
-  var type = problemOptions.selectedIndex;
+function generateProblem(typeoverride = -1) {
+  var type = problemOptions.selectedIndex  - 1;
   if (typeoverride != -1) type = typeoverride;
-  var problemSet = problemTypes[currentType][type].replace(/ /g, "");
-  problemSet = problemSet[0].toLowerCase() + problemSet.slice(1);
-  if (problemSet != "random") getProblem(problemSet);
-  else random();
+  if (type == -1) random();
+  else {
+    var problemSet = problemTypes[currentType][type].replace(/ /g, "");
+    problemSet = problemSet[0].toLowerCase() + problemSet.slice(1);
+    getProblem(problemSet);
+  }
 }
 
 function getProblem(problemSet) {
@@ -178,7 +180,8 @@ function buoyantForceFloating(mcq) {
   const sideLength = getRandomValue(0.5, 0.2, 2);
   const density = getRandomValue(1000, 300, 1);
   const depth = getRandomValue(sideLength / 2, sideLength / 2, 2);
-  currentAnswer = [(Math.round(sideLength * sideLength * depth * density * 100) / 100).toString()];
+  const answer = Math.round(sideLength * sideLength * depth * density * 100) / 100;
+  currentAnswer = [answer.toString()];
   if (mcq) currentPossibleAnswers = generateMCQAnswers(answer);
   else currentPossibleAnswers = ["shortresponse"];
   currentExplanation = `We know the buoyant force here is equal to the weight of the cube, because it is floating in equilibrium. Because the buoyant force is equal to the g * p<sub>fluid</sub> * V<sub>submerged</sub>, we can set these two forces equal to each other, which gives us g * m<sub>cube</sub> = g * p<sub>fluid</sub> * V<sub>submerged</sub>. Dividing out g from both sides leaves us with the mass of the cube on the left, and we just need to find the submerged volume. Since we know the side length, the cross-sectional area of the cube is ${sideLength} * ${sideLength} = ${Math.round(sideLength * sideLength * 100) / 100}m<sup>2</sup>, and we can multiply that by the depth to get ${Math.round(sideLength * sideLength * depth * 100) / 100}m<sup>3</sup> of submerged volume. Multiplying that value by the density of the fluid gives us the mass, which is ${Math.round(sideLength * sideLength * depth * density * 100) / 100}kg.`;
@@ -189,7 +192,8 @@ function fluidFlowConservation(mcq) {
   const dia1 = getRandomValue(2, 2, 1);
   const dia2 = getRandomValue(2, 2, 1);
   const vel1 = getRandomValue(10, 12, 1);
-  currentAnswer = [(Math.round(vel1 * (Math.pow(dia1 / 2, 2) / Math.pow(dia2 / 2, 2)) * 100) / 100).toString()];
+  const answer = Math.round(vel1 * (Math.pow(dia1 / 2, 2) / Math.pow(dia2 / 2, 2)) * 100) / 100;
+  currentAnswer = [answer.toString()];
   if (mcq) currentPossibleAnswers = generateMCQAnswers(answer);
   else currentPossibleAnswers = ["shortresponse"];
   currentExplanation = `According to the conservation of flow rate, the total volume flow rate (for an incompressible fluid) at one point in a pipe must equal the flow rate at another point. We can calculate the ratio between the cross-sectional area of A and B by (d<sub>A</sub> / 2)<sup>2</sup> / (d<sub>B</sub> / 2)<sup>2</sup>, which equals ${Math.round(Math.pow(dia1 / 2, 2) / Math.pow(dia2 / 2, 2) * 100) / 100}. We can then multiply the velocity of point A by this value to give us the velocity at point B, which is ${currentAnswer[0]}cm/s.`;
@@ -275,7 +279,7 @@ function powerRule(mcq) {
 
   expression = "f(x) = " + expression + ". Find f'(x).";
   currentAnswer = [answer];
-  if (mcq) currentPossibleAnswers = generateMCQAnswers(answer);
+  if (mcq) currentPossibleAnswers = ["shortresponse"];
   else currentPossibleAnswers = ["shortresponse"];
   currentExplanation = `We can use the power rule to find the derivative of each term, then add them together. The power rule states that the derivative of x<sup>n</sup> is n * x<sup>n - 1</sup>. Therefore, f'(x) = ${formattedAnswer}.`;
   return expression;
