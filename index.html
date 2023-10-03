@@ -16,6 +16,9 @@
     <h2 class="headerbutton" onclick="setType(1)">Calculus</h2>
     <h2 class="headerbutton" onclick="setType(2)">Statistics</h2>
     </div>
+    <div id="openquiz">
+      <h2 class="headerbutton" onclick="openQuiz()">Quiz</h2>
+    </div>
     <div id="headerbuttons2" style="display:flex;width:100%;justify-content:flex-end;padding-right:1rem;">
       <h2 class="headerbutton" onclick="openProfile()">Profile</h2>
       <h2 class="headerbutton" onclick="openSettings()">Settings</h2>
@@ -51,6 +54,22 @@
       <div class="column">
         <button onclick="clearSaved()">Clear Saved Data</button>
       </div>
+    </div>
+  </div>
+  <div class="section" id="quizpanel" style="display:none;margin-top: 3rem">
+    <div class="column" id="quizsettings" style="margin-left:2rem">
+      <h2 class="stattitle">Quiz Options</h2>
+      <h3 class="stat">Problem Sets</h3>
+      <form id="chosentypes" class="quizoptions" style="margin-left:2rem">
+      </form>
+      <form class="quizoptions">
+        <label class="answerlabel">Quiz Length (questions) <input type="number" id="quizlength" class="answerinput" value="10"></label>
+        <label class="answerlabel">Quiz Time (seconds) <input type="number" id="quiztime" class="answerinput" value="300"></label>
+      </form>
+      <button style="margin-top: 1.5rem" onclick="startQuiz()">Start Quiz</button>
+    </div>
+    <div class="column" id="quizmain">
+
     </div>
   </div>
   <div class="footer">

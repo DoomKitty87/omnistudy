@@ -135,6 +135,10 @@ button:hover {
   background-color: var(--dark-text);
 }
 
+.answerinput[type="number"]::-webkit-inner-spin-button, .answerinput[type="number"]::-webkit-outer-spin-button {
+  display: none;
+}
+
 .response {
   margin-left: 1rem;
   color: var(--dark-text);
@@ -229,4 +233,10 @@ button:hover {
   position: absolute;
   top: 10rem;
   right: 5rem;
+}
+
+.quizoptions {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
 }

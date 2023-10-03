@@ -18,9 +18,10 @@ const mcq = document.getElementById("mcq");
 var activePanel = 0;
 const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating", "Fluid Flow Conservation"], ["Power Rule"], ["P Value Conclusion"]];
 var chartId;
+var quizAllowedTypes;
 
 function generateProblem(typeoverride = -1) {
-  var type = problemOptions.selectedIndex  - 1;
+  var type = problemOptions.selectedIndex - 1;
   if (typeoverride != -1) type = typeoverride;
   if (type == -1) random();
   else {
@@ -52,6 +53,41 @@ function openProfile() {
   currentSettings = 0;
   setSettingType();
   if (activePanel != 1) setActivePanel(1);
+}
+
+function openQuiz() {
+  if (activePanel != 2) {
+    document.getElementById("openquiz").children[0].classList.add("selected");
+    setActivePanel(2);
+  }
+  document.getElementById("quizsettings").style.display = "";
+  document.getElementById("quizmain").style.display = "none";
+  const typesForm = document.getElementById("chosentypes");
+  typesForm.innerHTML = "";
+  for (var i = 0; i < problemTypes.length; i++) {
+    const type = document.createElement("input");
+    type.type = "checkbox";
+    type.classList.add("answerinput");
+    type.id = "selected" + types[i].innerHTML;
+    const label = document.createElement("label");
+    label.innerHTML = types[i].innerHTML;
+    label.classList.add("answerlabel");
+    label.appendChild(type);
+    typesForm.appendChild(label);
+  }
+}
+
+function startQuiz() {
+  quizAllowedTypes = [];
+  for (var i = 0; i < problemTypes.length; i++) {
+    if (!document.getElementById("selected" + types[i].innerHTML).checked) continue;
+    for (var j = 0; j < problemTypes[i].length; j++) {
+      quizAllowedTypes.push(problemTypes[i][j]);
+    }
+  }
+  console.log(quizAllowedTypes);
+  document.getElementById("quizsettings").style.display = "none";
+  document.getElementById("quizmain").style.display = "";
 }
 
 function reloadProfile() {
@@ -159,13 +195,28 @@ function setSettingType() {
 function setActivePanel(section) {
   activePanel = section;
   if (section == 0) {
+    document.getElementById("openquiz").children[0].classList.remove("selected");
+    document.getElementById("quizpanel").style.display = "none";
     document.getElementById("problempanel").style.display = "block";
     document.getElementById("settingspanel").style.display = "none";
-   }
-  else {
+  }
+  else if (section == 1) {
+    document.getElementById("openquiz").children[0].classList.remove("selected");
+    document.getElementById("quizpanel").style.display = "none";
     document.getElementById("problempanel").style.display = "none";
     document.getElementById("settingspanel").style.display = "block";
-   }
+  }
+  else {
+    for (var i = 0; i < types.length;  i++) {
+      types[i].classList.remove("selected");
+    }
+    for (var i = 0; i < settings.length;  i++) {
+      settings[i].classList.remove("selected");
+    }
+    document.getElementById("quizpanel").style.display = "block";
+    document.getElementById("problempanel").style.display = "none";
+    document.getElementById("settingspanel").style.display = "none";
+  }
 }
 
 function clearSaved() {
