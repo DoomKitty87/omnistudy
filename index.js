@@ -11,7 +11,8 @@ const profile = document.getElementById("profile");
 var lastRequestedProblem = "";
 var currentType = 0;
 var currentSettings = 0;
-var types = document.getElementById("headerbuttons").children;
+const types = document.getElementById("headerbuttons").children;
+const settings = document.getElementById("headerbuttons2").children;
 const mcq = document.getElementById("mcq");
 var activePanel = 0;
 
@@ -67,6 +68,13 @@ function reloadProfile() {
 }
 
 function setSettingType() {
+  for (var i = 0; i < types.length;  i++) {
+    types[i].classList.remove("selected");
+  }
+  for (var i = 0; i < settings.length;  i++) {
+    settings[i].classList.remove("selected");
+  }
+  settings[currentSettings].classList.add("selected");
   if (currentSettings == 0) {
     profile.style.display = "block";
     document.getElementById("settings").style.display = "none";
@@ -197,6 +205,9 @@ function setType(type) {
   problemOptions.innerHTML = "";
   for (var i = 0; i < types.length;  i++) {
     types[i].classList.remove("selected");
+  }
+  for (var i = 0; i < settings.length;  i++) {
+    settings[i].classList.remove("selected");
   }
   types[type].classList.add("selected");
   const rand = document.createElement("option");
