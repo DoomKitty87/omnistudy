@@ -91,7 +91,7 @@ function reloadProfile() {
             }
           },
           grid: {
-            color: "#94aaff"
+            color: "#10121840"
           },
           angleLines: {
             display: false
