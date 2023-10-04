@@ -97,6 +97,10 @@ function startQuiz() {
   quizAllowedTypes = [];
   quizTime = document.getElementById("quiztime").value;
   quizLength = document.getElementById("quizlength").value;
+  if (document.getElementById("apoverride").checked) {
+    quizTime = 3600;
+    quizLength = 55;
+  }
   for (var i = 0; i < problemTypes.length; i++) {
     if (!document.getElementById("selected" + types[i].innerHTML).checked) continue;
     for (var j = 0; j < problemTypes[i].length; j++) {
