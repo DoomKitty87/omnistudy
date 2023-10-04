@@ -19,6 +19,12 @@ var activePanel = 0;
 const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating", "Fluid Flow Conservation"], ["Power Rule"], ["P Value Conclusion"]];
 var chartId;
 var quizAllowedTypes;
+var quizTimer;
+var quizActive;
+var quizCorrect;
+var quizIncorrect;
+var quizTime;
+var quizLength;
 
 function generateProblem(typeoverride = -1) {
   var type = problemOptions.selectedIndex - 1;
@@ -78,7 +84,14 @@ function openQuiz() {
 }
 
 function startQuiz() {
+  quizTimer = Date.now();
+  quizActive = true;
+  quizCorrect = 0;
+  quizIncorrect = 0;
+
   quizAllowedTypes = [];
+  quizTime = document.getElementById("quiztime").value;
+  quizLength = document.getElementById("quizlength").value;
   for (var i = 0; i < problemTypes.length; i++) {
     if (!document.getElementById("selected" + types[i].innerHTML).checked) continue;
     for (var j = 0; j < problemTypes[i].length; j++) {
@@ -88,6 +101,92 @@ function startQuiz() {
   console.log(quizAllowedTypes);
   document.getElementById("quizsettings").style.display = "none";
   document.getElementById("quizmain").style.display = "";
+  generateQuizProblem();
+}
+
+function generateQuizProblem() {
+  if (Date.now() - quizTimer > quizTime * 1000 || quizCorrect + quizIncorrect >= quizLength) {
+    document.getElementById("quizsettings").style.display = "";
+    document.getElementById("quizmain").style.display = "none";
+  }
+  document.getElementById("submitquiz").innerHTML = "Submit Answer";
+  document.getElementById("submitquiz").onclick = submitQuizAnswer;
+  var problemSet = quizAllowedTypes[Math.floor(Math.random() * quizAllowedTypes.length)].replace(/ /g, "");
+  problemSet = problemSet[0].toLowerCase() + problemSet.slice(1);
+  getQuizProblem(problemSet);
+}
+
+function getQuizProblem(problemSet) {
+  const problem = window[problemSet](mcq.checked);
+  const quizAnswerForm = document.getElementById("quizanswerform");
+  quizAnswerForm.innerHTML = "";
+  document.getElementById("quizresponse").innerHTML = "";
+  document.getElementById("quizproblem").innerHTML = problem;
+  if (currentPossibleAnswers[0] == "shortresponse") for (var i = 0; i < currentAnswer.length; i++) {
+    const input = document.createElement("input");
+    const label = document.createElement("label");
+    input.classList += "answerinput";
+    input.id = i;
+    label.for = i;
+    label.innerHTML = `Answer (${i + 1}): `;
+    label.classList += "answerlabel";
+    quizAnswerForm.appendChild(label);
+    quizAnswerForm.appendChild(input);
+    quizAnswerForm.appendChild(document.createElement("br"));
+  }
+  else for (var i = 0; i < currentPossibleAnswers.length; i++) {
+    const input = document.createElement("input");
+    const label = document.createElement("label");
+    input.classList += "answerinput";
+    input.type = "radio";
+    input.name = "answer";
+    input.id = currentPossibleAnswers[i];
+    label.for = i;
+    label.innerHTML = currentPossibleAnswers[i];
+    label.classList += "answerlabel";
+    quizAnswerForm.appendChild(label);
+    quizAnswerForm.appendChild(input);
+    quizAnswerForm.appendChild(document.createElement("br"));
+    quizAnswerForm.appendChild(document.createElement("br"));
+  }
+}
+
+function submitQuizAnswer() {
+  const quizAnswerForm = document.getElementById("quizanswerform");
+  const quizResponse = document.getElementById("quizresponse");
+  var correct = true;
+  if (currentPossibleAnswers[0] == "shortresponse") {
+    var answered = false;
+    for (var i = 0; i < currentAnswer.length; i++) {
+      if (quizAnswerForm.children[i * 4 + 1].value != "") answered = true;
+    }
+    if (!answered) return;
+    for (var i = 0; i < currentAnswer.length; i++) {
+      if (quizAnswerForm.children[i * 4 + 1].value.replace(/\s/g, '') != currentAnswer[i].replace(/\s/g, '')) correct = false;
+    }
+  }
+  else {
+    var answered = false;
+    for (var i = 0; i < currentPossibleAnswers.length; i++) {
+      if (quizAnswerForm.children[i * 4 + 1].checked) answered = true;
+    }
+    if (!answered) return;
+    for (var i = 0; i < currentPossibleAnswers.length; i++) {
+      if (quizAnswerForm.children[i * 4 + 1].checked && quizAnswerForm.children[i * 4 + 1].id != currentAnswer[0]) correct = false;
+    }
+  }
+
+  if (correct) {
+    quizResponse.innerHTML = "Correct!";
+    quizCorrect += 1;
+    spawnConfetti();
+  }
+  else {
+    quizResponse.innerHTML = "Incorrect.";
+    quizIncorrect += 1;
+  }
+  document.getElementById("submitquiz").innerHTML = "Next";
+  document.getElementById("submitquiz").onclick = generateQuizProblem;
 }
 
 function reloadProfile() {
