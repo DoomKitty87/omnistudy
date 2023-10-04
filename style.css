@@ -240,3 +240,9 @@ button:hover {
   flex-direction: column;
   margin-top: 1rem;
 }
+
+.row {
+  display: flex;
+  flex-direction: row;
+  margin-left: 2rem;
+}

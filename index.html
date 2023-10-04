@@ -57,21 +57,29 @@
     </div>
   </div>
   <div class="section" id="quizpanel" style="display:none;margin-top: 3rem">
-    <div class="column" id="quizsettings" style="margin-left:2rem">
-      <h2 class="stattitle">Quiz Options</h2>
-      <h3 class="stat">Problem Sets</h3>
-      <form id="chosentypes" class="quizoptions" style="margin-left:2rem">
-      </form>
-      <form class="quizoptions">
-        <label class="answerlabel">Quiz Length (questions) <input type="number" id="quizlength" class="answerinput" value="10"></label>
-        <label class="answerlabel">Quiz Time (seconds) <input type="number" id="quiztime" class="answerinput" value="300"></label>
-      </form>
-      <button style="margin-top: 1.5rem" onclick="startQuiz()">Start Quiz</button>
+    <div class="row" id="quizsettings">
+      <div class="column" style="width:50%">
+        <h2 class="stattitle">Quiz Options</h2>
+        <h3 class="stat">Problem Sets</h3>
+        <form id="chosentypes" class="quizoptions" style="margin-left:2rem">
+        </form>
+        <form class="quizoptions">
+          <label class="answerlabel">Quiz Length (questions) <input type="number" id="quizlength" class="answerinput" value="10"></label>
+          <label class="answerlabel">Quiz Time (seconds) <input type="number" id="quiztime" class="answerinput" value="300"></label>
+        </form>
+        <button style="margin-top: 1.5rem" onclick="startQuiz()">Start Quiz</button>
+      </div>
+      <div class="column" style="float:right;width:50%">
+        <h1 class="stattitle">Quiz Statistics (Last Quiz)</h1>
+        <h2 class="stat" id="quizaccuracy"></h2>
+        <h2 class="stat" id="quizcorrect"></h2>
+        <h2 class="stat" id="quizincorrect"></h2>
+      </div>
     </div>
-    <div class="column" id="quizmain">
+    <div class="column" id="quizmain" style="margin-left:2rem;width: 80%">
       <h1 class="problem" id="quizproblem"></h1>
       <div class="answerform" id="quizanswerform"></div>
-      <div class="buttonwrapper"><button onclick="submitQuizAnswer()" id="submitquiz">Submit Answer</button></div>
+      <button style="margin-top: 2rem;" onclick="submitQuizAnswer()" id="submitquiz">Submit Answer</button>
       <h3 class="response" id="quizresponse"></h3>
     </div>
   </div>

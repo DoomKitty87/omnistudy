@@ -84,6 +84,11 @@ function openQuiz() {
 }
 
 function startQuiz() {
+  var selected = false;
+  for (var i = 0; i < types.length;  i++) {
+    if (document.getElementById("selected" + types[i].innerHTML).checked) selected = true;
+  }
+  if (!selected) return;
   quizTimer = Date.now();
   quizActive = true;
   quizCorrect = 0;
@@ -98,7 +103,6 @@ function startQuiz() {
       quizAllowedTypes.push(problemTypes[i][j]);
     }
   }
-  console.log(quizAllowedTypes);
   document.getElementById("quizsettings").style.display = "none";
   document.getElementById("quizmain").style.display = "";
   generateQuizProblem();
@@ -108,6 +112,9 @@ function generateQuizProblem() {
   if (Date.now() - quizTimer > quizTime * 1000 || quizCorrect + quizIncorrect >= quizLength) {
     document.getElementById("quizsettings").style.display = "";
     document.getElementById("quizmain").style.display = "none";
+    document.getElementById("quizaccuracy").innerHTML = `Accuracy: ${Math.round(quizCorrect / (quizCorrect + quizIncorrect) * 100)}%`;
+    document.getElementById("quizcorrect").innerHTML = `Correct: ${quizCorrect}`;
+    document.getElementById("quizincorrect").innerHTML = `Incorrect: ${quizIncorrect}`;
   }
   document.getElementById("submitquiz").innerHTML = "Submit Answer";
   document.getElementById("submitquiz").onclick = submitQuizAnswer;
@@ -117,7 +124,7 @@ function generateQuizProblem() {
 }
 
 function getQuizProblem(problemSet) {
-  const problem = window[problemSet](mcq.checked);
+  const problem = window[problemSet](true);
   const quizAnswerForm = document.getElementById("quizanswerform");
   quizAnswerForm.innerHTML = "";
   document.getElementById("quizresponse").innerHTML = "";
