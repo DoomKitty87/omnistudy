@@ -215,10 +215,12 @@ button:hover {
 .stat {
   color: var(--dark-text);
   margin-left: 2rem;
+  font-weight: 400;
 }
 
 .stattitle {
   color: var(--dark-text);
+  font-weight: 500;
 }
 
 .menu {
@@ -228,8 +230,8 @@ button:hover {
 .chart {
   display: block;
   margin-left: 2rem;
-  max-width: 40rem;
-  max-height: 40rem;
+  max-width: 35rem;
+  max-height: 35rem;
   position: absolute;
   top: 10rem;
   right: 5rem;

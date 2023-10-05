@@ -55,7 +55,7 @@ function openSettings() {
 }
 
 function openProfile() {
-  reloadProfile();
+  if (currentSettings != 0  || activePanel != 1) reloadProfile();
   currentSettings = 0;
   setSettingType();
   if (activePanel != 1) setActivePanel(1);
