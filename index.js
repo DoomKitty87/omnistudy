@@ -259,23 +259,27 @@ function reloadProfile() {
   const chartData = [];
   profileItems.innerHTML = "";
   for (var i = 0; i < problemTypes.length; i++) {
+    
     var typeTitle = document.createElement("h1");
     typeTitle.classList.add("stattitle");
     typeTitle.innerHTML = types[i].innerHTML;
-    profileItems.appendChild(typeTitle);
     var typeData = 0;
     var exempt = 0;
     for (var j = 0; j < problemTypes[i].length; j++) {
       var problemSet = problemTypes[i][j].replace(/ /g, "");
       problemSet = problemSet[0].toLowerCase() + problemSet.slice(1);
-      const stat = document.createElement("h2");
-      stat.classList.add("stat");
-      stat.innerHTML = problemTypes[i][j] + ": " + localStorage.getItem(problemSet) + "/" + (parseInt(localStorage.getItem(problemSet)) + parseInt(localStorage.getItem(problemSet + "incorrect")));
-      profileItems.appendChild(stat);
+      if (localStorage.getItem(problemSet) + localStorage.getItem(problemSet + "incorrect") != 0) {
+        const stat = document.createElement("h2");
+        stat.classList.add("stat");
+        stat.innerHTML = problemTypes[i][j] + ": " + localStorage.getItem(problemSet) + "/" + (parseInt(localStorage.getItem(problemSet)) + parseInt(localStorage.getItem(problemSet + "incorrect")));
+        typeTitle.appendChild(stat);
+      }
       var percentage = localStorage.getItem(problemSet) / (parseInt(localStorage.getItem(problemSet)) + parseInt(localStorage.getItem(problemSet + "incorrect")));
       if ((parseInt(localStorage.getItem(problemSet)) + parseInt(localStorage.getItem(problemSet + "incorrect"))) == 0) exempt += 1;
       else typeData += percentage;
     }
+    if (typeTitle.children.length > 0) profileItems.appendChild(typeTitle);
+    else typeTitle.remove();
     typeData /= problemTypes[i].length - exempt;
     chartLabels.push(types[i].innerHTML);
     chartData.push(Math.round(typeData * 100));
