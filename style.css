@@ -216,6 +216,7 @@ button:hover {
   color: var(--dark-text);
   margin-left: 2rem;
   font-weight: 400;
+  font-size: var(--font-size-small);
 }
 
 .stattitle {
