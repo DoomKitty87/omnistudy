@@ -525,7 +525,19 @@ function pValueConclusion(mcq) {
   const alphaValue = [0.01, 0.05, 0.1, 0.15][getRandomValue(2, 2, 0)];
   currentAnswer = [pValue > alphaValue ? "true" : "false"];
   currentPossibleAnswers = ["true", "false"];
+  currentExplanation = `Because the alpha value chosen was ${alphaValue}, the p value must be greater than ${alphaValue} for a rejection of the null hypothesis. Seeing as ${pValue} ${pValue > alphaValue ? '>' : '<'} ${alphaValue}, the answer is ${currentAnswer[0]}.`
   return `An experiment's z/t-score resulted in a p-value of ${pValue}, and the designers of the experiment chose to use an alpha value of ${alphaValue}. Is there enough evidence to reject the null hypothesis? (true or false)`;
+}
+
+function slopeFromCorrelation(mcq) {
+  const r = getRandomValue(0, 2, 2);
+  const sx = getRandomValue(15, 20, 1);
+  const sy = getRandomValue(30, 15, 1);
+  currentAnswer = [((sy / sx) * r).toString()];
+  if (mcq) currentPossibleAnswers = generateMCQAnswers(sy / sx * r);
+  else currentPossibleAnswers = ["shortresponse"];
+  currentExplanation = `The slope of the least-squares line can be determined by the equation b = r(Sy/Sx). Using that here gives us b = ${r}(${sy}/${sx}), which evaluates to ${sy / sx * r}.`;
+  return `A set of explanatory and response variables has been found to have an Sx of ${sx}, an Sy of ${sy}, and a correlation of r = ${r}. Based on these values, what is the slope of the least-squares line for the data?`;
 }
 
 function powerRule(mcq) {
