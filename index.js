@@ -16,7 +16,7 @@ const types = document.getElementById("headerbuttons").children;
 const settings = document.getElementById("headerbuttons2").children;
 const mcq = document.getElementById("mcq");
 var activePanel = 0;
-const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating", "Fluid Flow Conservation"], ["Power Rule"], ["P Value Conclusion"]];
+const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating", "Fluid Flow Conservation"], ["Power Rule"], ["P Value Conclusion", "Slope From Correlation", "Predicted Value"]];
 var chartId;
 var quizAllowedTypes;
 var quizTimer;
@@ -533,11 +533,24 @@ function slopeFromCorrelation(mcq) {
   const r = getRandomValue(0, 2, 2);
   const sx = getRandomValue(15, 20, 1);
   const sy = getRandomValue(30, 15, 1);
-  currentAnswer = [((sy / sx) * r).toString()];
-  if (mcq) currentPossibleAnswers = generateMCQAnswers(sy / sx * r);
+  const answer = Math.round(sy / sx * r * 100) / 100; 
+  currentAnswer = [answer.toString()];
+  if (mcq) currentPossibleAnswers = generateMCQAnswers(answer);
   else currentPossibleAnswers = ["shortresponse"];
-  currentExplanation = `The slope of the least-squares line can be determined by the equation b = r(Sy/Sx). Using that here gives us b = ${r}(${sy}/${sx}), which evaluates to ${sy / sx * r}.`;
+  currentExplanation = `The slope of the least-squares line can be determined by the equation b = r(Sy/Sx). Using that here gives us b = ${r}(${sy}/${sx}), which evaluates to ${answer}.`;
   return `A set of explanatory and response variables has been found to have an Sx of ${sx}, an Sy of ${sy}, and a correlation of r = ${r}. Based on these values, what is the slope of the least-squares line for the data?`;
+}
+
+function predictedValue(mcq) {
+  const a = getRandomValue(0, 2000, 2);
+  const b = getRandomValue(50, 50, 2);
+  const x = getRandomValue(25, 10, 1);
+  const answer = Math.round((a + b * x) * 100) / 100;
+  currentAnswer = [answer.toString()];
+  if (mcq) currentPossibleAnswers = generateMCQAnswers(answer);
+  else currentPossibleAnswers = ["shortresponse"];
+  currentExplanation = `The predicted y value is computed by using the x value given in the regression line. We simply need to evaluate the equation as ${a} + ${b} * ${x}, which gives ${answer}.`;
+  return `A linear regression was computed for variables x and y, and the resultant line was y&#770; = ${a} + ${b}x. If a given x value is ${x}, what is the predicted y value?`;
 }
 
 function powerRule(mcq) {
