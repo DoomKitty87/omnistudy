@@ -21,6 +21,7 @@ body {
   color: var(--main-text-color);
   margin: 0;
   user-select: none;
+  padding-bottom: 7rem;
 }
 
 button {
@@ -194,13 +195,14 @@ button:hover {
 }
 
 .footer {
+  position: fixed;
   display: flex;
   flex-direction: column;
   bottom: 0;
   left: 0;
   width: 100%;
   margin-top: 4rem;
-  height: 8rem;
+  height: 5rem;
   background-color: var(--dark-background);
   justify-content: center;
   box-shadow: #101218 0px 0px 10px;
