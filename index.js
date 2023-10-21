@@ -130,10 +130,6 @@ function startQuiz() {
   if (document.getElementById("apoverride").checked) {
     quizTime = 3600;
     quizLength = 55;
-    document.getElementById("quizlength").value = "3600";
-    document.getElementById("quiztime").value = "55";
-    document.getElementById("quizlength").disabled = true;
-    document.getElementById("quiztime").disabled = true;
   }
   for (var i = 0; i < problemTypes.length; i++) {
     for (var j = 0; j < problemTypes[i].length; j++) {
@@ -512,6 +508,13 @@ async function spawnConfetti() {
   }
   await new Promise(resolve => setTimeout(resolve, 5000));
   confettiTemp.remove();
+}
+
+function toggleBoxes() {
+  document.getElementById("quizlength").value = "3600";
+  document.getElementById("quiztime").value = "55";
+  document.getElementById("quizlength").toggleAttribute("disabled");
+  document.getElementById("quiztime").toggleAttribute("disabled");
 }
 
 function random() {
