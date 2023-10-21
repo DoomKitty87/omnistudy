@@ -9,7 +9,7 @@
   --dark-text: #101218;
   --dark-background: #101218;
   --light-background: #94aaff;
-  font-size: 1vw;
+    font-size: 1vw;
   --font-size-small: 1.3rem;
   --font-size-medium: 2.2rem;
   --font-size-large: 3rem;
@@ -21,6 +21,7 @@ body {
   color: var(--main-text-color);
   margin: 0;
   user-select: none;
+  padding-bottom: 15%;
 }
 
 button {
@@ -248,4 +249,9 @@ button:hover {
   display: flex;
   flex-direction: row;
   margin-left: 2rem;
+}
+
+.answerlabelsub {
+  margin-left: 2rem;
+  font-size: calc(var(--font-size-small) * 0.8);
 }

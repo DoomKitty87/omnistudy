@@ -61,6 +61,21 @@ function openProfile() {
   if (activePanel != 1) setActivePanel(1);
 }
 
+function updateChecked() {
+  for (var i = 0; i < types.length;  i++) {
+    if (document.getElementById("selected" + types[i].innerHTML).checked) {
+      for (var j = 0; j < problemTypes[i].length; j++) {
+        document.getElementById("selected" + problemTypes[i][j].replace(/ /g, "")).checked = true;
+      }
+    }
+    else {
+      for (var j = 0; j < problemTypes[i].length; j++) {
+        document.getElementById("selected" + problemTypes[i][j].replace(/ /g, "")).checked = false;
+      }
+    }
+  }
+}
+
 function openQuiz() {
   if (activePanel != 2) {
     document.getElementById("openquiz").children[0].classList.add("selected");
@@ -73,13 +88,28 @@ function openQuiz() {
   for (var i = 0; i < problemTypes.length; i++) {
     const type = document.createElement("input");
     type.type = "checkbox";
+    type.onclick = updateChecked;
     type.classList.add("answerinput");
     type.id = "selected" + types[i].innerHTML;
     const label = document.createElement("label");
     label.innerHTML = types[i].innerHTML;
     label.classList.add("answerlabel");
+    label.style.setProperty("margin-bottom", "0.5rem");
+    if (i != 0) label.style.setProperty("margin-top", "0.5rem");
     label.appendChild(type);
     typesForm.appendChild(label);
+    for (var j = 0; j < problemTypes[i].length; j++) {
+      const problemSet = problemTypes[i][j].replace(/ /g, "");
+      const problem = document.createElement("input");
+      problem.type = "checkbox";
+      problem.classList.add("answerinput");
+      problem.id = "selected" + problemSet;
+      const label = document.createElement("label");
+      label.innerHTML = problemTypes[i][j];
+      label.classList.add("answerlabel", "answerlabelsub");
+      label.appendChild(problem);
+      typesForm.appendChild(label);
+    }
   }
 }
 
@@ -102,8 +132,8 @@ function startQuiz() {
     quizLength = 55;
   }
   for (var i = 0; i < problemTypes.length; i++) {
-    if (!document.getElementById("selected" + types[i].innerHTML).checked) continue;
     for (var j = 0; j < problemTypes[i].length; j++) {
+      if (!document.getElementById("selected" + problemTypes[i][j].replace(/ /g, "")).checked) continue;
       quizAllowedTypes.push(problemTypes[i][j]);
     }
   }
