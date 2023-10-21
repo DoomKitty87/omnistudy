@@ -52,6 +52,7 @@ button:hover {
   padding: 1rem;
   padding-bottom: 0;
   box-shadow: var(--dark-background) 0px 0px 10px;
+  height: 5rem;
 }
 
 .title {
