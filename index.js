@@ -513,8 +513,8 @@ async function spawnConfetti() {
 function toggleBoxes() {
   document.getElementById("quizlength").value = "3600";
   document.getElementById("quiztime").value = "55";
-  document.getElementById("quizlength").toggleAttribute(disabled);
-  document.getElementById("quiztime").toggleAttribute(disabled);
+  document.getElementById("quizlength").toggleAttribute("disabled");
+  document.getElementById("quiztime").toggleAttribute("disabled");
 }
 
 function random() {
