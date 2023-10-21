@@ -337,6 +337,7 @@ function setSettingType() {
 }
 
 function setActivePanel(section) {
+  document.documentElement.style.setProperty("--main-text-color", ["#000000", "#fffeff", "#fffeff"][section]);
   activePanel = section;
   if (section == 0) {
     document.getElementById("openquiz").children[0].classList.remove("selected");
@@ -484,6 +485,7 @@ function setType(type) {
     option.innerHTML = problemTypes[type][i];
     problemOptions.appendChild(option);
   }
+  document.documentElement.style.setProperty("--main-text-color", ["#39c1ad", "#fece50", "#f74d51"][type]);
   generateProblem();
 }
 
