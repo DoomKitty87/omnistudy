@@ -7,7 +7,7 @@
   --main-text-color: #94aaff;
   --dark-text: #101218;
   --dark-background: #101218;
-  --light-background: #cfd0d1;
+  --light-background: #fffeff;
     font-size: 1vw;
   --font-size-small: 1.3rem;
   --font-size-medium: 2.2rem;
@@ -23,7 +23,7 @@ body {
   font-family: "Open Sans";
   background-color: var(--light-background);
   color: var(--main-text-color);
-  transition: color 0.25s ease;
+  transition: color 0.1s ease;
   margin: 0;
   user-select: none;
   padding-bottom: 7rem;
@@ -37,17 +37,20 @@ button {
   font-weight: 200;
   font-size: var(--font-size-small);
   padding: 0.6rem 1rem;
-  transition: transform 0.25s ease;
   margin-left: 1rem;
   transform: scale(0.98);
   background-color: var(--dark-background);
   border-radius: 0.5rem;
   color: var(--main-text-color);
-  transition: color 0.25s ease;
+  transition: transform 0.25s ease, color 0.1s ease;
 }
 
 button:hover {
   transform: scale(1);
+}
+
+button:active {
+  transform: scale(0.96);
 }
 
 .headerbar {
@@ -261,4 +264,18 @@ button:hover {
 .answerlabelsub {
   margin-left: 2rem;
   font-size: calc(var(--font-size-small) * 0.8);
+}
+
+#backgroundtext {
+  position: fixed;
+  width: 30%;
+  word-wrap: break-word;
+  height: 100%;
+  right: -7rem;
+  z-index: -1;
+  color: var(--dark-text);
+  opacity: 0.1;
+  font-size: 2rem;
+  font-weight: 100;
+  transform: rotateZ(20deg);
 }

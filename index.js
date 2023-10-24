@@ -15,6 +15,7 @@ var currentSettings = 0;
 const types = document.getElementById("headerbuttons").children;
 const settings = document.getElementById("headerbuttons2").children;
 const mcq = document.getElementById("mcq");
+const textBackground = document.getElementById("backgroundtext");
 var activePanel = 0;
 const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating", "Fluid Flow Conservation"], ["Power Rule"], ["P Value Conclusion", "Slope From Correlation", "Predicted Value"]];
 var chartId;
@@ -25,6 +26,32 @@ var quizCorrect;
 var quizIncorrect;
 var quizTime;
 var quizLength;
+var backgroundText = "";
+
+function disableBackgroundText() {
+  textBackground.style.display = "none";
+}
+
+function updateBackgroundText() {
+  textBackground.style.display = "block";
+  backgroundText = "";
+  for (var i = 0; i < 100; i++) {
+    switch (currentType) {
+      case 0:
+        backgroundText += [" - 10g ", " + " + Math.round(Math.random() * 100) / 100 + "N ", " * a ", " F = ", " Fb < Fg ", " P0 = P1 "][Math.floor(Math.random() * 6)];
+        break;
+      case 1:
+        backgroundText += ["x<sup>2</sup> + ", " + " + Math.round(Math.random() * 100) / 100, " - xln5"][Math.floor(Math.random() * 3)];
+        break;
+      case 2:
+        backgroundText += Math.random();
+        break;
+    }
+  }
+  textBackground.innerHTML = backgroundText;
+}
+
+updateBackgroundText();
 
 function generateProblem(typeoverride = -1) {
   var type = problemOptions.selectedIndex - 1;
@@ -337,6 +364,7 @@ function setSettingType() {
 }
 
 function setActivePanel(section) {
+  if (section != 0) disableBackgroundText();
   document.documentElement.style.setProperty("--main-text-color", ["#000000", "#fffeff", "#fffeff"][section]);
   activePanel = section;
   if (section == 0) {
@@ -487,6 +515,7 @@ function setType(type) {
   }
   document.documentElement.style.setProperty("--main-text-color", ["#39c1ad", "#fece50", "#f74d51"][type]);
   generateProblem();
+  updateBackgroundText();
 }
 
 async function spawnConfetti() {
