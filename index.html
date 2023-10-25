@@ -14,9 +14,9 @@
   <div class="headerbar">
     <h1 class="title">APStudy</h1>
     <div id="headerbuttons" style="display:flex">
-    <h2 class="headerbutton" onclick="setType(0)">Physics</h2>
-    <h2 class="headerbutton" onclick="setType(1)">Calculus</h2>
-    <h2 class="headerbutton" onclick="setType(2)">Statistics</h2>
+    <h2 class="headerbutton" onclick="setType(0)"><svg class="icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M240-160v-80l260-240-260-240v-80h480v120H431l215 200-215 200h289v120H240Z"/></svg>Physics</h2>
+    <h2 class="headerbutton" onclick="setType(1)"><svg class="icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M400-240v-80h62l105-120-105-120h-66l-64 344q-8 45-37 70.5T221-120q-45 0-73-24t-28-64q0-32 17-51.5t43-19.5q25 0 42.5 17t17.5 41q0 5-.5 9t-1.5 9q5-1 8.5-5.5T252-221l62-339H200v-80h129l21-114q7-38 37.5-62t72.5-24q44 0 72 26t28 65q0 30-17 49.5T500-680q-25 0-42.5-17T440-739q0-5 .5-9t1.5-9q-6 2-9 6t-5 12l-17 99h189v80h-32l52 59 52-59h-32v-80h200v80h-62L673-440l105 120h62v80H640v-80h32l-52-60-52 60h32v80H400Z"/></svg>Calculus</h2>
+    <h2 class="headerbutton" onclick="setType(2)"><svg class="icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80ZM120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z"/></svg>Statistics</h2>
     </div>
     <div id="openquiz">
       <h2 class="headerbutton" onclick="openQuiz()">Quiz</h2>
@@ -30,6 +30,7 @@
     <h1 class="problem" id="problem"></h1>
     <div class="section" style="flex-direction: row;">
     <div class="column">
+      <button onclick="copyCurrent()"><svg class="icons" id="copy" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>Copy</button>
       <button onclick="generateProblem()">Generate Problem</button>
       <select class="selectproblems" id="problemoptions">
       </select>
