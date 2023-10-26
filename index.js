@@ -88,17 +88,7 @@ function openProfile() {
   if (activePanel != 1) setActivePanel(1);
 }
 
-function updateChecked() {
-  for (var i = 0; i < types.length;  i++) {
-    if (document.getElementById("selected" + types[i].innerHTML).checked) {
-      for (var j = 0; j < problemTypes[i].length; j++) {
-        document.getElementById("selected" + problemTypes[i][j].replace(/ /g, "")).checked = true;
-      }
     }
-    else {
-      for (var j = 0; j < problemTypes[i].length; j++) {
-        document.getElementById("selected" + problemTypes[i][j].replace(/ /g, "")).checked = false;
-      }
     }
   }
 }
@@ -115,11 +105,8 @@ function openQuiz() {
   for (var i = 0; i < problemTypes.length; i++) {
     const type = document.createElement("input");
     type.type = "checkbox";
-    type.onclick = updateChecked;
     type.classList.add("answerinput");
-    type.id = "selected" + types[i].innerHTML;
     const label = document.createElement("label");
-    label.innerHTML = types[i].innerHTML;
     label.classList.add("answerlabel");
     label.style.setProperty("margin-bottom", "0.5rem");
     if (i != 0) label.style.setProperty("margin-top", "0.5rem");
@@ -321,7 +308,7 @@ function reloadProfile() {
     
     var typeTitle = document.createElement("h1");
     typeTitle.classList.add("stattitle");
-    typeTitle.innerHTML = types[i].innerHTML;
+    typeTitle.innerHTML = typesText[i];
     var typeData = 0;
     var exempt = 0;
     for (var j = 0; j < problemTypes[i].length; j++) {
@@ -340,7 +327,7 @@ function reloadProfile() {
     if (typeTitle.children.length > 0) profileItems.appendChild(typeTitle);
     else typeTitle.remove();
     typeData /= problemTypes[i].length - exempt;
-    chartLabels.push(types[i].innerHTML);
+    chartLabels.push(typesText[i]);
     chartData.push(Math.round(typeData * 100));
   }
   chartId.data.labels = chartLabels;  

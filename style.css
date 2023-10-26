@@ -53,6 +53,19 @@ button:active {
   transform: scale(0.96);
 }
 
+.icons {
+  width: 2rem;
+  fill: var(--main-text-color);
+  transition: fill 0.1s ease;
+  margin: 0;
+  margin-right: 0.5rem;
+  padding: 0;
+}
+
+#copy {
+  width: 1.25rem;
+}
+
 .headerbar {
   display: flex;
   flex-direction: row;
@@ -61,7 +74,7 @@ button:active {
   padding: 1rem;
   padding-bottom: 0;
   box-shadow: var(--dark-background) 0px 0px 10px;
-  height: 5rem;
+  height: 4.5rem;
 }
 
 .title {
@@ -69,15 +82,17 @@ button:active {
   margin-top: 0;
   font-size: var(--font-size-large);
   font-weight: 400;
+  transition: color 0.1s ease;
 }
 
 .headerbutton {
+  display: flex;
   margin-top: 0;
   margin-left: 5rem;
   font-size: var(--font-size-medium);
   font-weight: 300;
   cursor: pointer;
-  transition: color 0.25s ease, transform 0.25s ease, font-weight 0.25s ease;
+  transition: color 0.1s ease, transform 0.25s ease, font-weight 0.25s ease;
   transform: scale(0.98);
 }
 
@@ -100,6 +115,7 @@ button:active {
   height: fit-content;
   width: 80rem;
   font-weight: 300;
+  user-select: text;
   color: var(--dark-text);
 }
 
