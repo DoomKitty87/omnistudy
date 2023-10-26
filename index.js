@@ -142,8 +142,10 @@ function openQuiz() {
 
 function startQuiz() {
   var selected = false;
-  for (var i = 0; i < types.length;  i++) {
-    if (document.getElementById("selected" + types[i].innerHTML).checked) selected = true;
+  for (var i = 0; i < problemTypes.length; i++) {
+    for (var j = 0; j < problemTypes[i].length; j++) {
+      if (document.getElementById("selected" + problemTypes[i][j].replace(/ /g, "")).checked) selected = true;
+    }
   }
   if (!selected) return;
   quizTimer = Date.now();
