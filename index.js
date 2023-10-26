@@ -17,6 +17,7 @@ const settings = document.getElementById("headerbuttons2").children;
 const mcq = document.getElementById("mcq");
 const textBackground = document.getElementById("backgroundtext");
 var activePanel = 0;
+const typesText = ["Physics", "Calculus", "Statistics"];
 const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating", "Fluid Flow Conservation"], ["Power Rule"], ["P Value Conclusion", "Slope From Correlation", "Predicted Value"]];
 var chartId;
 var quizAllowedTypes;
@@ -89,7 +90,7 @@ function openProfile() {
 }
 
 function updateChecked(type) {
-  if (document.getElementById("selected" + types[type].innerHTML).checked) {
+  if (document.getElementById("selected" + typesText[type]).checked) {
     for (var j = 0; j < problemTypes[type].length; j++) {
       document.getElementById("selected" + problemTypes[type][j].replace(/ /g, "")).checked = true;
     }
@@ -115,9 +116,9 @@ function openQuiz() {
     type.type = "checkbox";
     type.setAttribute("onclick", "updateChecked(" + i + ")");
     type.classList.add("answerinput");
-    type.id = "selected" + types[i].innerHTML;
+    type.id = "selected" + typesText[i];
     const label = document.createElement("label");
-    label.innerHTML = types[i].innerHTML;
+    label.innerHTML = typesText[i];
     label.classList.add("answerlabel");
     label.style.setProperty("margin-bottom", "0.5rem");
     if (i != 0) label.style.setProperty("margin-top", "0.5rem");
@@ -140,8 +141,8 @@ function openQuiz() {
 
 function startQuiz() {
   var selected = false;
-  for (var i = 0; i < types.length;  i++) {
-    if (document.getElementById("selected" + types[i].innerHTML).checked) selected = true;
+  for (var i = 0; i < typesText.length;  i++) {
+    if (document.getElementById("selected" + typesText[i]).checked) selected = true;
   }
   if (!selected) return;
   quizTimer = Date.now();
@@ -317,7 +318,7 @@ function reloadProfile() {
     
     var typeTitle = document.createElement("h1");
     typeTitle.classList.add("stattitle");
-    typeTitle.innerHTML = types[i].innerHTML;
+    typeTitle.innerHTML = typesText[i];
     var typeData = 0;
     var exempt = 0;
     for (var j = 0; j < problemTypes[i].length; j++) {
@@ -336,7 +337,7 @@ function reloadProfile() {
     if (typeTitle.children.length > 0) profileItems.appendChild(typeTitle);
     else typeTitle.remove();
     typeData /= problemTypes[i].length - exempt;
-    chartLabels.push(types[i].innerHTML);
+    chartLabels.push(typesText[i]);
     chartData.push(Math.round(typeData * 100));
   }
   chartId.data.labels = chartLabels;  
