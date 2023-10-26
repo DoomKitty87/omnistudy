@@ -17,6 +17,7 @@ const settings = document.getElementById("headerbuttons2").children;
 const mcq = document.getElementById("mcq");
 const textBackground = document.getElementById("backgroundtext");
 var activePanel = 0;
+const typesText = ["Physics", "Calculus", "Statistics"];
 const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating", "Fluid Flow Conservation"], ["Power Rule"], ["P Value Conclusion", "Slope From Correlation", "Predicted Value"]];
 var chartId;
 var quizAllowedTypes;
@@ -88,7 +89,15 @@ function openProfile() {
   if (activePanel != 1) setActivePanel(1);
 }
 
+function updateChecked(type) {
+  if (document.getElementById("selected" + typesText[type]).checked) {
+    for (var j = 0; j < problemTypes[type].length; j++) {
+      document.getElementById("selected" + problemTypes[type][j].replace(/ /g, "")).checked = true;
     }
+  }
+  else {
+    for (var j = 0; j < problemTypes[type].length; j++) {
+      document.getElementById("selected" + problemTypes[type][j].replace(/ /g, "")).checked = false;
     }
   }
 }
@@ -105,8 +114,11 @@ function openQuiz() {
   for (var i = 0; i < problemTypes.length; i++) {
     const type = document.createElement("input");
     type.type = "checkbox";
+    type.setAttribute("onclick", "updateChecked(" + i + ")");
     type.classList.add("answerinput");
+    type.id = "selected" + typesText[i];
     const label = document.createElement("label");
+    label.innerHTML = typesText[i];
     label.classList.add("answerlabel");
     label.style.setProperty("margin-bottom", "0.5rem");
     if (i != 0) label.style.setProperty("margin-top", "0.5rem");
