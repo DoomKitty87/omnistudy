@@ -214,7 +214,7 @@ function getQuizProblem(problemSet) {
     input.type = "radio";
     input.name = "answer";
     input.id = currentPossibleAnswers[i];
-    label.for = i;
+    label.for = currentPossibleAnswers[i];
     label.innerHTML = currentPossibleAnswers[i];
     label.classList += "answerlabel";
     quizAnswerForm.appendChild(label);
@@ -434,8 +434,8 @@ function getProblem(problemSet) {
     input.classList += "answerinput";
     input.type = "radio";
     input.name = "answer";
-    input.id = i;
-    label.setAttribute("for", i);
+    input.id = currentPossibleAnswers[i];
+    label.setAttribute("for", currentPossibleAnswers[i]);
     label.innerHTML = currentPossibleAnswers[i];
     if (currentPossibleAnswers.length == 2) label.innerHTML = currentPossibleAnswers[i][0].toUpperCase() + currentPossibleAnswers[i].slice(1);
     label.classList += "answerlabel";
