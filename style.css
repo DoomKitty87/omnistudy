@@ -335,6 +335,10 @@ button:active {
   border-bottom-right-radius: 0.25rem;
 }
 
+.problemoptions:hover {
+  background-color: black;
+}
+
 .selectproblems:hover .problemoptions {
   display: block;
 }
