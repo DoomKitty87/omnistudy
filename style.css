@@ -192,7 +192,7 @@ button:active {
   background-color: var(--dark-background);
   cursor: pointer;
   width: fit-content;
-  padding: 0.6rem 1rem;
+  padding: 0.6rem 2.5rem 0.6rem 1rem;
   margin-left: 1rem;
   margin-right: 1rem;
 }
@@ -317,7 +317,7 @@ button:active {
   right: -7rem;
   z-index: -1;
   color: var(--dark-text);
-  opacity: 0.1;
+  opacity: 0.2;
   font-size: 2rem;
   font-weight: 100;
   transform: rotateZ(20deg);

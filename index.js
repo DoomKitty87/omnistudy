@@ -428,9 +428,10 @@ function getProblem(problemSet) {
     input.classList += "answerinput";
     input.type = "radio";
     input.name = "answer";
-    input.id = currentPossibleAnswers[i];
-    label.for = i;
+    input.id = i;
+    label.setAttribute("for", i);
     label.innerHTML = currentPossibleAnswers[i];
+    if (currentPossibleAnswers.length == 2) label.innerHTML = currentPossibleAnswers[i][0].toUpperCase() + currentPossibleAnswers[i].slice(1);
     label.classList += "answerlabel";
     answerForm.appendChild(label);
     answerForm.appendChild(input);
@@ -500,7 +501,7 @@ function generateMCQAnswers(answer, text = false) {
 
 function setProblemSet(indx) {
   currentProblem = indx;
-  topOption.innerHTML = document.getElementById("problemoptions").children[parseInt(indx) + 2].innerHTML;
+  topOption.innerHTML = document.getElementById("problemoptions").children[parseInt(indx) + 2].innerHTML + "<span style='font-weight:300;position:absolute;font-size:2.5rem;margin-left:0.5rem;margin-top:0.1rem;'>&#x2C7;</span>";
 }
 
 function setType(type) {
@@ -533,6 +534,7 @@ function setType(type) {
     problemOptions.appendChild(option);
   }
   document.documentElement.style.setProperty("--main-text-color", ["#39c1ad", "#fece50", "#f74d51"][type]);
+  setProblemSet(-1);
   generateProblem();
   updateBackgroundText();
 }
