@@ -325,12 +325,11 @@ button:active {
 
 .problemoptions {
   display: none;
-  width: 100%;
   position: absolute;
   margin-left: -1rem;
   background-color: var(--dark-background);
-  width: inherit;
-  padding: 0.5rem 1rem;
+  width: fit-content;
+  padding: 0.6rem 1rem;
   border-bottom-left-radius: 0.5rem;
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
@@ -338,5 +337,4 @@ button:active {
 
 .selectproblems:hover .problemoptions {
   display: block;
-
 }

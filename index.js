@@ -514,17 +514,17 @@ function setType(type) {
     settings[i].classList.remove("selected");
   }
   types[type].classList.add("selected");
-  topOption = document.createElement("option");
+  topOption = document.createElement("div");
   topOption.innerHTML = "Random";
   problemOptions.appendChild(topOption);
-  const rand = document.createElement("option");
+  const rand = document.createElement("div");
   rand.innerHTML = "Random";
   rand.classList.add("problemoptions");
   rand.setAttribute("onclick", "setProblemSet(this.getAttribute('data-indx'))");
   rand.setAttribute("data-indx", -1);
   problemOptions.appendChild(rand);
   for (var i = 0; i < problemTypes[type].length; i++) {
-    const option = document.createElement("option");
+    const option = document.createElement("div");
     option.classList.add("problemoptions");
     option.innerHTML = problemTypes[type][i];
     option.setAttribute("onclick", "setProblemSet(this.getAttribute('data-indx'))");
