@@ -29,14 +29,16 @@
   <div class="section" id="problempanel">
     <h1 class="problem" id="problem"></h1>
     <div class="section" style="flex-direction: row;">
-    <div class="column">
+    <div class="column" style="width:120%;">
+      <div style="display:flex;flex-direction: row;align-content: center;">
       <button onclick="copyCurrent()"><svg class="icons" id="copy" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>Copy</button>
       <button onclick="generateProblem()">Generate Problem</button>
-      <select class="selectproblems" id="problemoptions">
-      </select>
-      <input class="answerinput" type="checkbox" id="mcq">
-      <label for="mcq" class="answerlabel" style="position: relative; top: 0.08rem; margin-left: 0.5rem;">All MCQs</label>
-      <br><br>
+      <div class="selectproblems" id="problemoptions">
+      </div>
+      <div class="checkbutton">
+      <input class="answerinput" type="checkbox" id="mcq" style="position: inherit">
+      <label for="mcq" class="answerlabel" style="position: relative; margin-left: 0.5rem;">All MCQs</label></div>
+      <br><br></div>
       <div class="answerform" id="answerform">
       </div><br><br>
       <div class="buttonwrapper"><button onclick="checkAnswer()">Check Answer</button></div>

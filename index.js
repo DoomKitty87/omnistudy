@@ -28,6 +28,8 @@ var quizIncorrect;
 var quizTime;
 var quizLength;
 var backgroundText = "";
+var currentProblem = 0;
+var topOption;
 
 function disableBackgroundText() {
   textBackground.style.display = "none";
@@ -55,7 +57,7 @@ function updateBackgroundText() {
 updateBackgroundText();
 
 function generateProblem(typeoverride = -1) {
-  var type = problemOptions.selectedIndex - 1;
+  var type = currentProblem;
   if (typeoverride != -1) type = typeoverride;
   if (type == -1) random();
   else {
@@ -414,6 +416,7 @@ function getProblem(problemSet) {
     input.id = i;
     label.for = i;
     label.innerHTML = `Answer (${i + 1}): `;
+    if (currentAnswer.length == 1) label.innerHTML = `Answer: `;
     label.classList += "answerlabel";
     answerForm.appendChild(label);
     answerForm.appendChild(input);
@@ -495,6 +498,11 @@ function generateMCQAnswers(answer, text = false) {
   return answers;
 }
 
+function setProblemSet(indx) {
+  currentProblem = indx;
+  topOption.innerHTML = document.getElementById("problemoptions").children[parseInt(indx) + 2].innerHTML;
+}
+
 function setType(type) {
   if (activePanel != 0) setActivePanel(0);
   currentType = type;
@@ -506,12 +514,22 @@ function setType(type) {
     settings[i].classList.remove("selected");
   }
   types[type].classList.add("selected");
+  topOption = document.createElement("option");
+  topOption.innerHTML = "Random";
+  problemOptions.appendChild(topOption);
   const rand = document.createElement("option");
   rand.innerHTML = "Random";
+  rand.classList.add("problemoptions");
+  rand.setAttribute("onclick", "setProblemSet(this.getAttribute('data-indx'))");
+  rand.setAttribute("data-indx", -1);
   problemOptions.appendChild(rand);
   for (var i = 0; i < problemTypes[type].length; i++) {
     const option = document.createElement("option");
+    option.classList.add("problemoptions");
     option.innerHTML = problemTypes[type][i];
+    option.setAttribute("onclick", "setProblemSet(this.getAttribute('data-indx'))");
+    option.setAttribute("data-indx", i);
+    option.style.setProperty("margin-top", ((i + 1) * 2.5) + "rem");
     problemOptions.appendChild(option);
   }
   document.documentElement.style.setProperty("--main-text-color", ["#39c1ad", "#fece50", "#f74d51"][type]);

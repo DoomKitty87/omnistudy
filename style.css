@@ -4,7 +4,7 @@
 }
 
 :root {
-  --main-text-color: #94aaff;
+  --main-text-color: #39c1ad;
   --dark-text: #242726;
   --dark-background: #242726;
   --light-background: #ebecea;
@@ -73,7 +73,7 @@ button:active {
   background-color: var(--dark-background);
   padding: 1rem;
   padding-bottom: 0;
-  box-shadow: var(--dark-background) 0px 0px 10px;
+  box-shadow: var(--dark-background) 0px 0px 5px;
   height: 4.5rem;
 }
 
@@ -136,11 +136,10 @@ button:active {
 }
 
 .answerinput {
-  border-color: var(--dark-text);
   background-color: transparent;
   color: var(--dark-text);
-  border-radius: 0.2rem;
-  border-style: solid;
+  border: none;
+  border-bottom: 0.2rem var(--dark-text) solid;
   font-family: "Open Sans";
   font-size: calc(var(--font-size-small) * 0.8);
   outline: none;
@@ -152,6 +151,7 @@ button:active {
   height: 1.2rem;
   position: relative;
   top: 0.2rem;
+  border-radius: 0.2rem;
   border: 0.1rem solid var(--dark-text);
   appearance: none;
   margin: 0 0 0 0.75rem;
@@ -186,12 +186,39 @@ button:active {
 }
 
 .selectproblems {
-  border: none;
+  border-radius: 0.5rem;
   font-size: var(--font-size-small);
-  color: var(--dark-text);
-  background: transparent;
-  padding: 0.5rem 1rem;
+  color: var(--main-text);
+  background-color: var(--dark-background);
   cursor: pointer;
+  width: fit-content;
+  padding: 0.6rem 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.checkbutton {
+  background-color: var(--dark-background);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.checkbutton label {
+  color: var(--main-text-color);
+}
+
+.checkbutton input {
+  background-color: var(--light-background);
+}
+
+.checkbutton input[type="checkbox"]:checked {
+  background-color: var(--main-text-color);
+}
+
+.center {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .explanation {
@@ -229,7 +256,7 @@ button:active {
   height: 5rem;
   background-color: var(--dark-background);
   justify-content: center;
-  box-shadow: #101218 0px 0px 10px;
+  box-shadow: #101218 0px 0px 5px;
 }
 
 .footertext {
@@ -294,4 +321,22 @@ button:active {
   font-size: 2rem;
   font-weight: 100;
   transform: rotateZ(20deg);
+}
+
+.problemoptions {
+  display: none;
+  width: 100%;
+  position: absolute;
+  margin-left: -1rem;
+  background-color: var(--dark-background);
+  width: inherit;
+  padding: 0.5rem 1rem;
+  border-bottom-left-radius: 0.5rem;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.selectproblems:hover .problemoptions {
+  display: block;
+
 }
