@@ -65,6 +65,8 @@ function generateProblem(typeoverride = -1) {
     problemSet = problemSet[0].toLowerCase() + problemSet.slice(1);
     getProblem(problemSet);
   }
+  document.getElementById("checkanswer").innerHTML = "Check Answer";
+  document.getElementById("checkanswer").onclick = function() {checkAnswer()};
 }
 
 function loadStorage() {
@@ -474,6 +476,8 @@ function checkAnswer() {
     getProblem(lastRequestedProblem);
   }
   else {
+    document.getElementById("checkanswer").innerHTML = "Generate Problem";
+    document.getElementById("checkanswer").onclick = function() {generateProblem()};
     localStorage.setItem(lastRequestedProblem + "incorrect", parseInt(localStorage.getItem(lastRequestedProblem + "incorrect")) + 1);
     responseText.innerHTML = "Incorrect. The answer is ";
     problemExplanation.innerHTML = currentExplanation;
