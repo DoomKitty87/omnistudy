@@ -400,6 +400,10 @@ function clearSaved() {
   location.reload();
 }
 
+function copyCurrent() {
+  navigator.clipboard.writeText(problemText.innerHTML.replaceAll("<sup>", "^").replaceAll("</sup>", "").replaceAll("<sub>", "").replaceAll("</sub>", ""));
+}
+
 function getProblem(problemSet) {
   currentExplanation = "";
   const problem = window[problemSet](mcq.checked);
