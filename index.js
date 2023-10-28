@@ -722,3 +722,23 @@ function powerRule(mcq) {
   currentExplanation = `We can use the power rule to find the derivative of each term, then add them together. The power rule states that the derivative of x<sup>n</sup> is n * x<sup>n - 1</sup>. Therefore, f'(x) = ${formattedAnswer}.`;
   return expression;
 }
+
+document.onkeyup = function(e) {
+  if (e.altKey && e.key == "g") {
+    generateProblem();
+  } else if (e.altKey && e.key == "ArrowLeft") {
+    if (currentType == 0) {
+      setType(2);
+    } else {
+      setType(currentType - 1);
+    };
+  } else if (e.altKey && e.key == "ArrowRight") {
+    if (currentType == 2) {
+      setType(0);
+    } else {
+      setType(currentType + 1);
+    };
+  } else if (e.altKey && e.key == "m") {
+    document.getElementById("mcq").toggleAttribute("checked");
+  }
+};

@@ -342,3 +342,14 @@ button:active {
 .selectproblems:hover .problemoptions {
   display: block;
 }
+
+kbd {
+  border-radius: 2px;
+  padding: 2px;
+  border: 1px solid var(--dark-background);
+  color: var(--dark-text);
+}
+
+.shortcuttext {
+  color: var(--dark-text);
+}
