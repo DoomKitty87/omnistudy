@@ -329,14 +329,18 @@ button:active {
   margin-left: -1rem;
   background-color: var(--dark-background);
   width: fit-content;
-  padding: 0.6rem 1rem;
-  border-bottom-left-radius: 0.5rem;
+  padding: 0.4rem 1rem;
+  border-bottom-left-radius: 0rem;
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
 }
 
 .problemoptions:hover {
   background-color: black;
+}
+
+.selectproblems:hover {
+  border-bottom-left-radius: 0;
 }
 
 .selectproblems:hover .problemoptions {
