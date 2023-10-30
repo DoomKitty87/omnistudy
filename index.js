@@ -216,6 +216,7 @@ function getQuizProblem(problemSet) {
     input.id = currentPossibleAnswers[i];
     label.for = currentPossibleAnswers[i];
     label.innerHTML = currentPossibleAnswers[i];
+    if (currentPossibleAnswers.length == 2) label.innerHTML = currentPossibleAnswers[i][0].toUpperCase() + currentPossibleAnswers[i].slice(1);
     label.classList += "answerlabel";
     quizAnswerForm.appendChild(label);
     quizAnswerForm.appendChild(input);
@@ -531,6 +532,7 @@ function setType(type) {
   rand.classList.add("problemoptions");
   rand.setAttribute("onclick", "setProblemSet(this.getAttribute('data-indx'))");
   rand.setAttribute("data-indx", -1);
+  rand.style.setProperty("margin-top", "0.5rem");
   problemOptions.appendChild(rand);
   for (var i = 0; i < problemTypes[type].length; i++) {
     const option = document.createElement("div");
@@ -538,7 +540,8 @@ function setType(type) {
     option.innerHTML = problemTypes[type][i];
     option.setAttribute("onclick", "setProblemSet(this.getAttribute('data-indx'))");
     option.setAttribute("data-indx", i);
-    option.style.setProperty("margin-top", ((i + 1) * 2.5) + "rem");
+    option.style.setProperty("margin-top", ((i + 1) * 2.5 + 0.5) + "rem");
+    if (i == problemTypes[type].length - 1) option.style.setProperty("border-bottom-left-radius", "0.25rem");
     problemOptions.appendChild(option);
   }
   document.documentElement.style.setProperty("--main-text-color", ["#39c1ad", "#fece50", "#f74d51"][type]);
