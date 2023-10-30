@@ -18,7 +18,7 @@ const mcq = document.getElementById("mcq");
 const textBackground = document.getElementById("backgroundtext");
 var activePanel = 0;
 const typesText = ["Physics", "Calculus", "Statistics"];
-const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating", "Fluid Flow Conservation"], ["Power Rule"], ["P Value Conclusion", "Slope From Correlation", "Predicted Value"]];
+const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating", "Fluid Flow Conservation", "Ideal Gas Law Isothermic"], ["Power Rule"], ["P Value Conclusion", "Slope From Correlation", "Predicted Value"]];
 var chartId;
 var quizAllowedTypes;
 var quizTimer;
@@ -615,6 +615,17 @@ function fluidFlowConservation(mcq) {
   else currentPossibleAnswers = ["shortresponse"];
   currentExplanation = `According to the conservation of flow rate, the total volume flow rate (for an incompressible fluid) at one point in a pipe must equal the flow rate at another point. We can calculate the ratio between the cross-sectional area of A and B by (d<sub>A</sub> / 2)<sup>2</sup> / (d<sub>B</sub> / 2)<sup>2</sup>, which equals ${Math.round(Math.pow(dia1 / 2, 2) / Math.pow(dia2 / 2, 2) * 100) / 100}. We can then multiply the velocity of point A by this value to give us the velocity at point B, which is ${currentAnswer[0]}cm/s.`;
   return `A fluid is moving through a pipe from location A to location B. At location A, the pipe's diameter is ${dia1}cm, and the fluid flows at ${vel1}cm/s. At location B, the pipe's diameter is ${dia2}cm. Find the velocity of the fluid at location B in cm/s.`;
+}
+
+function idealGasLawIsothermic(mcq) {
+  const volume = getRandomValue(4, 6, 2);
+  const pressure = getRandomValue(100, 20, 2);
+  const newvolume = getRandomValue(2, 3, 2);
+  const answer = Math.round(pressure / (newvolume / volume) * 100) / 100;
+  if (mcq) currentPossibleAnswers = generateMCQAnswers(answer);
+  else currentPossibleAnswers = ["shortresponse"];
+  currentExplanation = `The ideal gas law states that PV = nRT, and since in this scenario, n, R, and T are all constant, we only need to related P and V in the two states. The product of P and V is equal, so P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub>. Plugging in values gives ${pressure} * ${volume} = P<sub>2</sub> * ${newvolume}. This results in P<sub>2</sub> = ${Math.round(pressure * volume * 100) / 100} / ${newvolume}. This evaluates to ${answer}kPa.`;
+  return `A sample of an ideal gas is placed in a container of volume ${volume}m<sup>3</sup>, and is found to be at a pressure of ${pressure}kPa. If the container's volume is reduced to ${newvolume}m<sup>3</sup>, and the temperature is constant, what is the new pressure of the sample?`;
 }
 
 function pValueConclusion(mcq) {
