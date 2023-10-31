@@ -38,7 +38,7 @@ function disableBackgroundText() {
 function updateBackgroundText() {
   textBackground.style.display = "block";
   backgroundText = "";
-  for (var i = 0; i < 100; i++) {
+  for (var i = 0; i < 200; i++) {
     switch (currentType) {
       case 0:
         backgroundText += [" - 10g ", " + " + Math.round(Math.random() * 100) / 100 + "N ", " * a ", " F = ", " Fb < Fg ", " P0 = P1 "][Math.floor(Math.random() * 6)];
@@ -271,7 +271,7 @@ function reloadProfile() {
       labels: [],
       datasets: [{
         label: "Percentage Correct",
-        backgroundColor: "#101218a0",
+        backgroundColor: "#ebecead0",
         data: []
       }]
     },
@@ -297,14 +297,14 @@ function reloadProfile() {
       scales: {
         r: {
           pointLabels: {
-            color: "#101218",
+            color: "#ebecea",
             font: {
               size: 24,
               family: "Open Sans"
             }
           },
           grid: {
-            color: "#10121840"
+            color: "#ebecea40"
           },
           angleLines: {
             display: false

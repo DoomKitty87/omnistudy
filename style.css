@@ -5,9 +5,9 @@
 
 :root {
   --main-text-color: #39c1ad;
-  --dark-text: #242726;
-  --dark-background: #242726;
-  --light-background: #ebecea;
+  --dark-text: #ebecea;
+  --dark-background: #1d1f1e;
+  --light-background: #242726;
     font-size: 1vw;
   --font-size-small: 1.3rem;
   --font-size-medium: 2.2rem;
