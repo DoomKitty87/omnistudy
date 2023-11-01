@@ -514,6 +514,7 @@ function generateMCQAnswers(answer, text = false) {
 function setProblemSet(indx) {
   currentProblem = indx;
   topOption.innerHTML = document.getElementById("problemoptions").children[parseInt(indx) + 2].innerHTML + "<span style='font-weight:300;position:absolute;font-size:2.5rem;margin-left:0.5rem;margin-top:0.1rem;'>&#x2C7;</span>";
+  generateProblem();
 }
 
 function setType(type) {
