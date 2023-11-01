@@ -1,1 +1,1 @@
-# ap-study
+# omnistudy
