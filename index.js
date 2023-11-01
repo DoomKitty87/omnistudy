@@ -625,6 +625,7 @@ function idealGasLawIsothermic(mcq) {
   const pressure = getRandomValue(100, 20, 2);
   const newvolume = getRandomValue(2, 3, 2);
   const answer = Math.round(pressure / (newvolume / volume) * 100) / 100;
+  currentAnswer = [answer.toString()];
   if (mcq) currentPossibleAnswers = generateMCQAnswers(answer);
   else currentPossibleAnswers = ["shortresponse"];
   currentExplanation = `The ideal gas law states that PV = nRT, and since in this scenario, n, R, and T are all constant, we only need to related P and V in the two states. The product of P and V is equal, so P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub>. Plugging in values gives ${pressure} * ${volume} = P<sub>2</sub> * ${newvolume}. This results in P<sub>2</sub> = ${Math.round(pressure * volume * 100) / 100} / ${newvolume}. This evaluates to ${answer}kPa.`;
