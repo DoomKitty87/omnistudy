@@ -18,7 +18,7 @@ const mcq = document.getElementById("mcq");
 const textBackground = document.getElementById("backgroundtext");
 var activePanel = 0;
 const typesText = ["Physics", "Calculus", "Statistics"];
-const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating", "Fluid Flow Conservation", "Ideal Gas Law Isothermic"], ["Power Rule"], ["P Value Conclusion", "Slope From Correlation", "Predicted Value"]];
+const problemTypes = [["Buoyant Force Submerged", "Buoyant Force Floating", "Fluid Flow Conservation", "Ideal Gas Law Isothermic", "Current In Circuit", "Resistance Series", "Resistance Parallel", "Calculate Magnetic Force", "Calculate Magnetic Field", "Magnetic Deflection Radius"], ["Power Rule"], ["P Value Conclusion", "Slope From Correlation", "Predicted Value"]];
 var chartId;
 var quizAllowedTypes;
 var quizTimer;
@@ -537,6 +537,8 @@ function setType(type) {
   rand.setAttribute("onclick", "setProblemSet(this.getAttribute('data-indx'))");
   rand.setAttribute("data-indx", -1);
   rand.style.setProperty("margin-top", "0.5rem");
+  rand.style.setProperty("margin-left", "-1rem");
+  rand.style.setProperty("width", "15rem");
   problemOptions.appendChild(rand);
   for (var i = 0; i < problemTypes[type].length; i++) {
     const option = document.createElement("div");
@@ -544,7 +546,10 @@ function setType(type) {
     option.innerHTML = problemTypes[type][i];
     option.setAttribute("onclick", "setProblemSet(this.getAttribute('data-indx'))");
     option.setAttribute("data-indx", i);
-    option.style.setProperty("margin-top", ((i + 1) * 2.5 + 0.5) + "rem");
+    const col = Math.floor((i + 1) / 5);
+    option.style.setProperty("margin-top", ((i + 1 - col * 5) * 2.5 + 0.5) + "rem");
+    option.style.setProperty("margin-left", col * 17 - 1 + "rem");
+    option.style.setProperty("width", "15rem");
     if (i == problemTypes[type].length - 1) option.style.setProperty("border-bottom-left-radius", "0.25rem");
     problemOptions.appendChild(option);
   }
@@ -634,6 +639,76 @@ function idealGasLawIsothermic(mcq) {
   else currentPossibleAnswers = ["shortresponse"];
   currentExplanation = `The ideal gas law states that PV = nRT, and since in this scenario, n, R, and T are all constant, we only need to related P and V in the two states. The product of P and V is equal, so P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub>. Plugging in values gives ${pressure} * ${volume} = P<sub>2</sub> * ${newvolume}. This results in P<sub>2</sub> = ${Math.round(pressure * volume * 100) / 100} / ${newvolume}. This evaluates to ${answer}kPa.`;
   return `A sample of an ideal gas is placed in a container of volume ${volume}m<sup>3</sup>, and is found to be at a pressure of ${pressure}kPa. If the container's volume is reduced to ${newvolume}m<sup>3</sup>, and the temperature is constant, what is the new pressure of the sample?`;
+}
+
+function currentInCircuit(mcq) {
+  const voltage = getRandomValue(10, 5, 1);
+  const resistance = getRandomValue(5, 2, 1);
+  const answer = Math.round(voltage / resistance * 100) / 100;
+  currentAnswer = [answer.toString()];
+  if (mcq) currentPossibleAnswers = generateMCQAnswers(answer);
+  else currentPossibleAnswers = ["shortresponse"];
+  currentExplanation = `In a circuit, the current drawn can be determined by V/R. For this, that means that ${voltage}V/${resistance}Ω = ${answer}A.`;
+  return `A circuit with a battery of voltage ${voltage} has a total resistance of ${resistance}. How much current will flow through the circuit?`;
+}
+
+function resistanceSeries(mcq) {
+  const r1 = getRandomValue(5, 2, 1);
+  const r2 = getRandomValue(5, 2, 1);
+  const answer = r1 + r2;
+  currentAnswer = [answer.toString()];
+  if (mcq) currentPossibleAnswers = generateMCQAnswers(answer);
+  else currentPossibleAnswers = ["shortresponse"];
+  currentExplanation = `Two resistors in series create a total resistance of the sum of their values. Here, that is ${r1}Ω + ${r2}Ω = ${answer}Ω.`;
+  return `Two resistors are in series with resistance ${r1} and ${r2}. What is the equivalent resistance of the two resistors?`;
+}
+
+function resistanceParallel(mcq) {
+  const r1 = getRandomValue(5, 2, 1);
+  const r2 = getRandomValue(5, 2, 1);
+  const answer = 1/(1/r1 + 1/r2);
+  currentAnswer = [answer.toString()];
+  if (mcq) currentPossibleAnswers = generateMCQAnswers(answer);
+  else currentPossibleAnswers = ["shortresponse"];
+  currentExplanation = `Two resistors in parallel create a total resistance equal to 1/(1/R1 + 1/R2... 1/Ri). Here, that is 1/(1/${r1}Ω + 1/${r2}Ω) = ${answer}Ω.`;
+  return `Two resistors are in parallel with resistance ${r1} and ${r2}. What is the equivalent resistance of the two resistors?`;
+}
+
+function calculateMagneticForce(mcq) {
+  const q = getRandomValue(8, 8, 2);
+  const v = getRandomValue(12, 4, 2);
+  const b = getRandomValue(1, 1, 2);
+  const answer = Math.round(q * v * b * 100) / 100;
+  currentAnswer = [answer.toString()];
+  if (mcq) currentPossibleAnswers = generateMCQAnswers(answer);
+  else currentPossibleAnswers = ["shortresponse"];
+  currentExplanation = `The magnitude of the magnetic force enacted on a mass is equal to the charge * velocity * field strength. Here, that is equal to ${q}C * ${v}m/s * ${b}T = ${answer}N.`;
+  return `A particle with charge ${q}C and velocity ${v}m/s moves through a perpendicular magnetic field of strength ${b}T. What is the magnitude of the magnetic force acting on the particle?`;
+}
+
+function calculateMagneticField(mcq) {
+  const mu = 0.0000002;
+  const i = getRandomValue(14, 8, 1);
+  const r = getRandomValue(2, 2, 2);
+  const answer = Math.round(mu * i / r * 100) / 100;
+  currentAnswer = [answer.toString()];
+  if (mcq) currentPossibleAnswers = generateMCQAnswers(answer);
+  else currentPossibleAnswers = ["shortresponse"];
+  currentExplanation = `The magnitude of a magnetic field for current moving through a wire is given by μ<sub>0</sub> * current / distance. Here, that is μ<sub>0</sub> * ${i} / ${r}, resulting in a ${answer}T magnetic field.`;
+  return `A wire with ${i}A of current moving through it is generating a magnetic field. What is the magnitude of this field at a distance of ${r}m?`;
+}
+
+function magneticDeflectionRadius(mcq) {
+  const m = getRandomValue(2, 2, 1);
+  const v = getRandomValue(2, 2, 1);
+  const q = getRandomValue(2, 2, 1);
+  const b = getRandomValue(2, 2, 1);
+  const answer = Math.round(m * v / q / b * 100) / 100;
+  currentAnswer = [answer.toString()];
+  if (mcq) currentPossibleAnswers = generateMCQAnswers(answer);
+  else currentPossibleAnswers = ["shortresponse"];
+  currentExplanation = `The deflection radius of a particle in a magnetic field is linearly related to the mass and velocity, and inversely to the charge and field strength. This gives r = m * v / q / B, here being ${answer} = ${m} * ${v} / ${q} / ${b}.`;
+  return `If a particle being shot into a perpendicular magnetic field is modified so that its mass is multiplied by ${m}, its velocity by ${v}, its charge by ${q}, and the strength of the field by ${b}. What is the relative radius of the arc it will form?`;
 }
 
 function pValueConclusion(mcq) {
