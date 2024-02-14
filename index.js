@@ -538,7 +538,7 @@ function setType(type) {
   rand.setAttribute("data-indx", -1);
   rand.style.setProperty("margin-top", "0.5rem");
   rand.style.setProperty("margin-left", "-1rem");
-  rand.style.setProperty("width", "15rem");
+  rand.style.setProperty("width", "16rem");
   problemOptions.appendChild(rand);
   for (var i = 0; i < problemTypes[type].length; i++) {
     const option = document.createElement("div");
@@ -548,8 +548,8 @@ function setType(type) {
     option.setAttribute("data-indx", i);
     const col = Math.floor((i + 1) / 5);
     option.style.setProperty("margin-top", ((i + 1 - col * 5) * 2.5 + 0.5) + "rem");
-    option.style.setProperty("margin-left", col * 17 - 1 + "rem");
-    option.style.setProperty("width", "15rem");
+    option.style.setProperty("margin-left", col * 18 - 1 + "rem");
+    option.style.setProperty("width", "16rem");
     if (i == problemTypes[type].length - 1) option.style.setProperty("border-bottom-left-radius", "0.25rem");
     problemOptions.appendChild(option);
   }
