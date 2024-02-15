@@ -655,7 +655,7 @@ function currentInCircuit(mcq) {
 function resistanceSeries(mcq) {
   const r1 = getRandomValue(5, 2, 1);
   const r2 = getRandomValue(5, 2, 1);
-  const answer = r1 + r2;
+  const answer = Math.round((r1 + r2) * 100) / 100;
   currentAnswer = [answer.toString()];
   if (mcq) currentPossibleAnswers = generateMCQAnswers(answer);
   else currentPossibleAnswers = ["shortresponse"];
@@ -666,7 +666,7 @@ function resistanceSeries(mcq) {
 function resistanceParallel(mcq) {
   const r1 = getRandomValue(5, 2, 1);
   const r2 = getRandomValue(5, 2, 1);
-  const answer = 1/(1/r1 + 1/r2);
+  const answer = Math.round(1/(1/r1 + 1/r2) *  100) / 100;
   currentAnswer = [answer.toString()];
   if (mcq) currentPossibleAnswers = generateMCQAnswers(answer);
   else currentPossibleAnswers = ["shortresponse"];
